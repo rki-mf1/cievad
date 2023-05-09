@@ -1,0 +1,10 @@
+bin/*
+!bin/mason_simulator
+!bin/SURVIVOR
+
+data/*
+!data/configs
+
+logs/*
+
+scripts/snakepipe/snake_config.yaml

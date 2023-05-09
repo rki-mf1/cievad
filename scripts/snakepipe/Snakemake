@@ -1,0 +1,109 @@
+configfile: "scripts/snakepipe/snake_config.yaml"
+
+#################### PARAMS
+HEAD_DIR = config["HEAD_DIR"]
+REF      = config["REF"]
+
+
+
+#################### RULES
+rule all:
+    input:
+        expand(HEAD_DIR + "/data/simulated_hap/simulated.{ext}", ext=["fasta", "vcf", "insertions.fa", "bed"]),
+        HEAD_DIR + "/data/simulated_reads/R1.fastq",
+        HEAD_DIR + "/data/simulated_reads/R2.fastq",
+        expand(REF + ".{ext}", ext=["bwt", "pac", "ann", "amb", "sa"]),
+        HEAD_DIR + "/data/alignment/simulated_reads_to_original_ref.sorted.bam"
+
+rule survivor_simsv_parameterfile:
+    output:
+        HEAD_DIR + "/data/configs/parameter_file"
+    log:
+        HEAD_DIR + "/logs/survivor.paramfile.log"
+    shell:
+        """
+            {HEAD_DIR}/bin/SURVIVOR simSV {output}
+        """
+
+rule survivor_simsv:
+    input:
+        rules.survivor_simsv_parameterfile.output
+    params:
+        snp_freq=0.01,
+        outmode=0
+    output:
+        expand(HEAD_DIR + "/data/simulated_hap/simulated.{ext}", ext=["fasta", "vcf", "insertions.fa", "bed"])
+    log:
+        HEAD_DIR + "/logs/survivor.simsv.log"
+    shell:
+        """
+            {HEAD_DIR}/bin/SURVIVOR simSV \
+                {REF} \
+                {input} \
+                {params.snp_freq} \
+                {params.outmode} \
+                {HEAD_DIR}/data/simulated_hap/simulated
+        """
+
+rule mason_read_simulation:
+    input:
+        rules.survivor_simsv.output
+    output:
+        r1=HEAD_DIR + "/data/simulated_reads/R1.fastq",
+        r2=HEAD_DIR + "/data/simulated_reads/R2.fastq"
+    log:
+        HEAD_DIR + "/logs/mason.simulator.log"
+    shell:
+        """
+            {HEAD_DIR}/bin/mason_simulator \
+                -ir {HEAD_DIR}/data/simulated_hap/simulated.fasta \
+                -n 3000 \
+                -o {output.r1} \
+                -or {output.r2} \
+                --num-threads 1 \
+                --fragment-min-size 450 \
+                --fragment-max-size 550 \
+                --fragment-mean-size 500 \
+                --fragment-size-std-dev 20 \
+                --illumina-read-length 150
+        """
+
+rule index_ref:
+    input:
+        REF
+    output:
+        expand(REF + ".{ext}", ext=["bwt", "pac", "ann", "amb", "sa"])
+    conda:
+        HEAD_DIR + "/env/conda_bwa_and_samtools.yaml"
+    log:
+        HEAD_DIR + "/logs/ref.index.log"
+    shell:
+        """
+            bwa index {input}
+        """
+
+rule align_simu_reads_to_original_ref:
+    input:
+        rules.index_ref.output
+    output:
+        HEAD_DIR + "/data/alignment/simulated_reads_to_original_ref.sorted.bam"
+    conda:
+        HEAD_DIR + "/env/conda_bwa_and_samtools.yaml"
+    log:
+        HEAD_DIR + "/logs/alignment.bwa.log"
+    shell:
+        """
+            bwa mem \
+                -t 1 \
+                {REF} \
+                {rules.mason_read_simulation.output.r1} \
+                {rules.mason_read_simulation.output.r2} | \
+            samtools view \
+                -@ 1 \
+                -Sb \
+                - | \
+            samtools sort \
+                -@ 1 \
+                -o {output} \
+                -
+        """
