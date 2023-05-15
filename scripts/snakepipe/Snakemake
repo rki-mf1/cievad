@@ -1,9 +1,14 @@
+#################### CONFIG
 configfile: "scripts/snakepipe/snake_config.yaml"
+
+
+#################### INCLUDES
+include: "modules/variant_calling.smk"
+
 
 #################### PARAMS
 HEAD_DIR = config["HEAD_DIR"]
 REF      = config["REF"]
-
 
 
 #################### RULES
@@ -13,7 +18,8 @@ rule all:
         HEAD_DIR + "/data/simulated_reads/R1.fastq",
         HEAD_DIR + "/data/simulated_reads/R2.fastq",
         expand(REF + ".{ext}", ext=["bwt", "pac", "ann", "amb", "sa"]),
-        HEAD_DIR + "/data/alignment/simulated_reads_to_original_ref.sorted.bam"
+        HEAD_DIR + "/data/alignment/simulated_reads_to_original_ref.sorted.bam",
+        HEAD_DIR + "/data/variant_calling/callset.freebayes.normalized.vcf"
 
 rule survivor_simsv_parameterfile:
     output:

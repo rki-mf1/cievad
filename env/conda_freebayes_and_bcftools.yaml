@@ -1,0 +1,39 @@
+name: freebayes
+channels:
+  - bioconda
+  - defaults
+dependencies:
+  - _libgcc_mutex=0.1=main
+  - _openmp_mutex=5.1=1_gnu
+  - bcftools=1.9=ha228f0b_4
+  - bzip2=1.0.8=h7b6447c_0
+  - ca-certificates=2023.01.10=h06a4308_0
+  - certifi=2022.12.7=py37h06a4308_0
+  - curl=7.71.1=h8f29fe8_2
+  - freebayes=1.3.2=py37hc088bd4_0
+  - gdbm=1.18=hd4cb3f1_4
+  - htslib=1.9=ha228f0b_7
+  - krb5=1.19.4=h568e23c_0
+  - ld_impl_linux-64=2.38=h1181459_1
+  - libcurl=7.71.1=h303737a_2
+  - libdeflate=1.0=h14c3975_1
+  - libedit=3.1.20221030=h5eee18b_0
+  - libffi=3.4.4=h6a678d5_0
+  - libgcc-ng=11.2.0=h1234567_1
+  - libgomp=11.2.0=h1234567_1
+  - libssh2=1.10.0=h8f2d780_0
+  - libstdcxx-ng=11.2.0=h1234567_1
+  - ncurses=6.4=h6a678d5_0
+  - openssl=1.1.1t=h7f8727e_0
+  - parallel=20160622=1
+  - perl=5.34.0=h5eee18b_2
+  - perl-threaded=5.32.1=hdfd78af_1
+  - pip=22.3.1=py37h06a4308_0
+  - python=3.7.16=h7a1cb2a_0
+  - readline=8.2=h5eee18b_0
+  - setuptools=65.6.3=py37h06a4308_0
+  - sqlite=3.41.2=h5eee18b_0
+  - tk=8.6.12=h1ccaba5_0
+  - wheel=0.38.4=py37h06a4308_0
+  - xz=5.2.10=h5eee18b_1
+  - zlib=1.2.13=h5eee18b_0
