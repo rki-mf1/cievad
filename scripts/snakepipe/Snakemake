@@ -18,7 +18,7 @@ rule all:
         HEAD_DIR + "/data/simulated_reads/R1.fastq",
         HEAD_DIR + "/data/simulated_reads/R2.fastq",
         expand(REF + ".{ext}", ext=["bwt", "pac", "ann", "amb", "sa"]),
-        HEAD_DIR + "/data/alignment/simulated_reads_to_original_ref.sorted.bam",
+        expand(HEAD_DIR + "/data/alignment/simulated_reads_to_original_ref.sorted.{ext}", ext=["bam", "bam.bai"]),
         HEAD_DIR + "/data/variant_calling/callset.freebayes.normalized.vcf"
 
 rule survivor_simsv_parameterfile:
@@ -113,3 +113,21 @@ rule align_simu_reads_to_original_ref:
                 -o {output} \
                 -
         """
+
+rule index_bam:
+    input:
+        rules.align_simu_reads_to_original_ref.output
+    output:
+        HEAD_DIR + "/data/alignment/simulated_reads_to_original_ref.sorted.bam.bai"
+    conda:
+        HEAD_DIR + "/env/conda_bwa_and_samtools.yaml"
+    log:
+        HEAD_DIR + "/logs/samtools.index.log"
+    shell:
+        """
+            samtools index \
+                {input}
+                
+        """
+
+
