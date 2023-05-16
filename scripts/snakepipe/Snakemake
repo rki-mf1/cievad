@@ -17,7 +17,8 @@ rule all:
         expand(HEAD_DIR + "/data/simulated_hap/simulated.{ext}", ext=["fasta", "vcf", "insertions.fa", "bed"]),
         HEAD_DIR + "/data/simulated_reads/R1.fastq",
         HEAD_DIR + "/data/simulated_reads/R2.fastq",
-        expand(REF + ".{ext}", ext=["bwt", "pac", "ann", "amb", "sa"]),
+        HEAD_DIR + "/data/simulated_reads/simulated.bam",
+        expand(HEAD_DIR + "/data/simulated_reads/simulated.sorted.{ext}", ext=["bam", "bam.bai"]),
         expand(HEAD_DIR + "/data/alignment/simulated_reads_to_original_ref.sorted.{ext}", ext=["bam", "bam.bai"]),
         HEAD_DIR + "/data/variant_calling/callset.freebayes.normalized.vcf"
 
@@ -56,7 +57,8 @@ rule mason_read_simulation:
         rules.survivor_simsv.output
     output:
         r1=HEAD_DIR + "/data/simulated_reads/R1.fastq",
-        r2=HEAD_DIR + "/data/simulated_reads/R2.fastq"
+        r2=HEAD_DIR + "/data/simulated_reads/R2.fastq",
+        ra=HEAD_DIR + "/data/simulated_reads/simulated.bam"
     log:
         HEAD_DIR + "/logs/mason.simulator.log"
     shell:
@@ -66,6 +68,7 @@ rule mason_read_simulation:
                 -n 3000 \
                 -o {output.r1} \
                 -or {output.r2} \
+                --out-alignment {output.ra} \
                 --num-threads 1 \
                 --fragment-min-size 450 \
                 --fragment-max-size 550 \
@@ -73,6 +76,20 @@ rule mason_read_simulation:
                 --fragment-size-std-dev 20 \
                 --illumina-read-length 150
         """
+
+rule sort_and_index_simulated_reads_bam:
+    input:
+        rules.mason_read_simulation.output.ra
+    output:
+        sorted_bam       = HEAD_DIR + "/data/simulated_reads/simulated.sorted.bam",
+        sorted_bam_index = HEAD_DIR + "/data/simulated_reads/simulated.sorted.bam.bai"
+    conda:
+        HEAD_DIR + "/env/conda_bwa_and_samtools.yaml"
+    shell:
+        """
+            samtools sort -o {output.sorted_bam} {input}
+            samtools index {output.sorted_bam}
+        """        
 
 rule index_ref:
     input:
@@ -90,7 +107,9 @@ rule index_ref:
 
 rule align_simu_reads_to_original_ref:
     input:
-        rules.index_ref.output
+        r1=rules.mason_read_simulation.output.r1,
+        r2=rules.mason_read_simulation.output.r2,
+        idx=rules.index_ref.output
     output:
         HEAD_DIR + "/data/alignment/simulated_reads_to_original_ref.sorted.bam"
     conda:
@@ -102,8 +121,8 @@ rule align_simu_reads_to_original_ref:
             bwa mem \
                 -t 1 \
                 {REF} \
-                {rules.mason_read_simulation.output.r1} \
-                {rules.mason_read_simulation.output.r2} | \
+                {input.r1} \
+                {input.r2} | \
             samtools view \
                 -@ 1 \
                 -Sb \
@@ -127,7 +146,4 @@ rule index_bam:
         """
             samtools index \
                 {input}
-                
         """
-
-
