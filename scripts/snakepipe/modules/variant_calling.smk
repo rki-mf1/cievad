@@ -25,7 +25,7 @@ rule freebayes:
                 {output}
         """
 
-rule freebayes_norm_vcf:
+rule freebayes_callset_norm_vcf:
     input:
         rules.freebayes.output
     log:
@@ -45,9 +45,9 @@ rule freebayes_norm_vcf:
                 {input}
         """
 
-rule freebayes_sort_vcf:
+rule freebayes_callset_sort_vcf:
     input:
-        rules.freebayes_norm_vcf.output
+        rules.freebayes_callset_norm_vcf.output
     output:
         config["HEAD_DIR"] + "/data/variant_calling/callset.freebayes.normalized.sorted.vcf.gz"
     conda:
@@ -60,9 +60,9 @@ rule freebayes_sort_vcf:
                 {input}
         """
 
-rule freebayes_index_vcf:
+rule freebayes_callset_index_vcf:
     input:
-        rules.freebayes_sort_vcf.output
+        rules.freebayes_callset_sort_vcf.output
     output:
         config["HEAD_DIR"] + "/data/variant_calling/callset.freebayes.normalized.sorted.vcf.gz.tbi"
     conda:

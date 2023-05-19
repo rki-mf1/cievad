@@ -6,6 +6,8 @@ configfile: "scripts/snakepipe/snake_config.yaml"
 include: "modules/variant_calling.smk"
 include: "modules/truthset.smk"
 include: "modules/short_reads_simulator.smk"
+include: "modules/short_reads_alignment.smk"
+include: "modules/reference.smk"
 
 
 #################### PARAMS
@@ -19,65 +21,10 @@ rule all:
         expand(HEAD_DIR + "/data/simulated_hap/simulated.{ext}", ext=["fasta", "vcf", "insertions.fa", "bed"]),
         expand(HEAD_DIR + "/data/simulated_reads/{mate}.fastq", mate=["R1", "R2"]),
         expand(HEAD_DIR + "/data/simulated_reads/simulated.sorted.{ext}", ext=["bam", "bam.bai"]),
-        expand(HEAD_DIR + "/data/alignment/simulated_reads_to_original_ref.sorted.{ext}", ext=["bam", "bam.bai"]),
+        HEAD_DIR + "/data/alignment/simulated_reads_to_original_ref.sorted.bam.bai",
         HEAD_DIR + "/data/variant_calling/callset.freebayes.normalized.sorted.vcf.gz.tbi",
         HEAD_DIR + "/data/simulated_hap/simulated.normalized.sorted.vcf.gz.tbi"
 
 
-rule index_ref:
-    input:
-        REF
-    output:
-        expand(REF + ".{ext}", ext=["bwt", "pac", "ann", "amb", "sa"])
-    conda:
-        HEAD_DIR + "/env/conda_bwa_and_samtools.yaml"
-    log:
-        HEAD_DIR + "/logs/ref.index.log"
-    shell:
-        """
-            bwa index {input}
-        """
 
-rule align_simu_reads_to_original_ref:
-    input:
-        r1=rules.short_read_simulation_mason.output.r1,
-        r2=rules.short_read_simulation_mason.output.r2,
-        idx=rules.index_ref.output
-    output:
-        HEAD_DIR + "/data/alignment/simulated_reads_to_original_ref.sorted.bam"
-    conda:
-        HEAD_DIR + "/env/conda_bwa_and_samtools.yaml"
-    log:
-        HEAD_DIR + "/logs/alignment.bwa.log"
-    shell:
-        """
-            bwa mem \
-                -t 1 \
-                {REF} \
-                {input.r1} \
-                {input.r2} | \
-            samtools view \
-                -@ 1 \
-                -Sb \
-                - | \
-            samtools sort \
-                -@ 1 \
-                -o {output} \
-                -
-        """
-
-rule index_bam:
-    input:
-        rules.align_simu_reads_to_original_ref.output
-    output:
-        HEAD_DIR + "/data/alignment/simulated_reads_to_original_ref.sorted.bam.bai"
-    conda:
-        HEAD_DIR + "/env/conda_bwa_and_samtools.yaml"
-    log:
-        HEAD_DIR + "/logs/samtools.index.log"
-    shell:
-        """
-            samtools index \
-                {input}
-        """
 
