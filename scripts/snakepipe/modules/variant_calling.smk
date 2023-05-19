@@ -69,5 +69,5 @@ rule freebayes_callset_index_vcf:
         config["HEAD_DIR"] + "/env/conda_freebayes_and_bcftools.yaml"
     shell:
         """
-            bcftools index -t {output}
+            bcftools index -t {input}
         """

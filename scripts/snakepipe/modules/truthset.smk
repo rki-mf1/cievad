@@ -32,9 +32,24 @@ rule survivor_simsv:
                 {HEAD_DIR}/data/simulated_hap/simulated
         """
 
-rule truthset_norm_vcf:
+rule truthset_hotfix_vcf:
     input:
         rules.survivor_simsv.output.vcf
+    output:
+        temp(config["HEAD_DIR"] + "/data/simulated_hap/simulated.hotfixed.vcf")
+    shell:
+        """
+            sed \
+                's/GT:GL:GQ:FT:RC:DR:DV:RR:RV/GT/g '\
+                {input} | \
+            sed \
+                's/##INFO=<ID=AF,Number=.,Type=Integer,Description="Allele Frequency.">/##INFO=<ID=AF,Number=A,Type=Float,Description="Estimated allele frequency in the range (0,1]">/g' \
+                > {output}
+        """
+
+rule truthset_norm_vcf:
+    input:
+        rules.truthset_hotfix_vcf.output
     log:
         config["HEAD_DIR"] + "/logs/truthset_norm_vcf.log"
     conda:
@@ -62,7 +77,7 @@ rule truthset_sort_vcf:
     shell:
         """
             bcftools sort \
-                -o {output.vcfgz} \
+                -o {output} \
                 -O z \
                 {input}
         """
@@ -76,5 +91,5 @@ rule truthset_index_vcf:
         config["HEAD_DIR"] + "/env/conda_freebayes_and_bcftools.yaml"
     shell:
         """
-            bcftools index -t {output}
+            bcftools index -t {input}
         """
