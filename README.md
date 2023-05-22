@@ -17,6 +17,11 @@ Variant calling benchmark accompanying the IMS-MP project
 
 Prior to the installation make sure your system meets all the requirements. Conda is required to launch individual steps of the pipeline. Snakemake is the current choice of workflow language for this pipeline and can easily be installed via conda as well.
 
+### Warnings
+
+⚠️ On the system this pipeline was developend on we faced issues with snakemake versions 7 and later due to their internal shell execution settings. If similar issues occur on your system please refer to the tested versions above. <br>
+⚠️ An older version of bcftools did not split multi-allelic sides correctly when using _bcftools norm_. This issue was not observed in the recent version 1.17. The provided conda environment is set up accordingly.
+
 ## Installation:
 
 The pipeline only needs to be downloaded, no installation of any internal components required.
@@ -33,7 +38,7 @@ conda install -y -c bioconda snakemake
 
 ## Usage:
 
-The current setup to launch the benchmark pipeline is to edit/create a configuration file for snakemake. Edit/generate a `scripts/snakemake/snake_config.yaml` (within the repository's scripts/snakemake/ subfolder!) and edit the following variables:
+The current setup to launch the benchmark pipeline is to edit/create a configuration file for snakemake. Generate a `scripts/snakemake/snake_config.yaml` and edit the following variables:
 ```
 HEAD_DIR:
    <path to the cloned repository>
@@ -43,5 +48,5 @@ REF:
 
 With this configuration file in place you can simply run the snakemake pipeline via:
 ```
-snakemake --use-conda -s scripts/snakemake/Snakemake
+snakemake -p --use-conda --cores 1 -s scripts/snakemake/Snakemake
 ```
