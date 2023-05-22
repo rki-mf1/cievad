@@ -53,7 +53,7 @@ rule truthset_norm_vcf:
     log:
         config["HEAD_DIR"] + "/logs/truthset_norm_vcf.log"
     conda:
-        config["HEAD_DIR"] + "/env/conda_freebayes_and_bcftools.yaml"
+        config["HEAD_DIR"] + "/env/conda_bcftools.yaml"
     params:
         ref = config["REF"]
     output:
@@ -62,9 +62,10 @@ rule truthset_norm_vcf:
         """
             bcftools norm \
                 --check-ref s \
+                --multiallelics -both \
                 -f {params.ref} \
                 -o {output} \
-                {input}
+                {input} 
         """
 
 rule truthset_sort_vcf:
@@ -73,7 +74,7 @@ rule truthset_sort_vcf:
     output:
         config["HEAD_DIR"] + "/data/simulated_hap/simulated.normalized.sorted.vcf.gz"
     conda:
-        config["HEAD_DIR"] + "/env/conda_freebayes_and_bcftools.yaml"
+        config["HEAD_DIR"] + "/env/conda_bcftools.yaml"
     shell:
         """
             bcftools sort \
@@ -88,7 +89,7 @@ rule truthset_index_vcf:
     output:
         config["HEAD_DIR"] + "/data/simulated_hap/simulated.normalized.sorted.vcf.gz.tbi"
     conda:
-        config["HEAD_DIR"] + "/env/conda_freebayes_and_bcftools.yaml"
+        config["HEAD_DIR"] + "/env/conda_bcftools.yaml"
     shell:
         """
             bcftools index -t {input}

@@ -5,7 +5,7 @@ rule freebayes:
     log:
         config["HEAD_DIR"] + "/logs/freebayes.log"
     conda:
-        config["HEAD_DIR"] + "/env/conda_freebayes_and_bcftools.yaml"
+        config["HEAD_DIR"] + "/env/conda_freebayes.yaml"
     params:
         mac=10,
         maf=0.1,
@@ -31,7 +31,7 @@ rule freebayes_callset_norm_vcf:
     log:
         config["HEAD_DIR"] + "/logs/bcftools.norm.log"
     conda:
-        config["HEAD_DIR"] + "/env/conda_freebayes_and_bcftools.yaml"
+        config["HEAD_DIR"] + "/env/conda_bcftools.yaml"
     params:
         ref=config["REF"]
     output:
@@ -40,9 +40,10 @@ rule freebayes_callset_norm_vcf:
         """
             bcftools norm \
                 --check-ref s \
+                --multiallelics -both \
                 -f {params.ref} \
                 -o {output} \
-                {input}
+                {input} 
         """
 
 rule freebayes_callset_sort_vcf:
@@ -51,7 +52,7 @@ rule freebayes_callset_sort_vcf:
     output:
         config["HEAD_DIR"] + "/data/variant_calling/callset.freebayes.normalized.sorted.vcf.gz"
     conda:
-        config["HEAD_DIR"] + "/env/conda_freebayes_and_bcftools.yaml"
+        config["HEAD_DIR"] + "/env/conda_bcftools.yaml"
     shell:
         """
             bcftools sort \
@@ -66,7 +67,7 @@ rule freebayes_callset_index_vcf:
     output:
         config["HEAD_DIR"] + "/data/variant_calling/callset.freebayes.normalized.sorted.vcf.gz.tbi"
     conda:
-        config["HEAD_DIR"] + "/env/conda_freebayes_and_bcftools.yaml"
+        config["HEAD_DIR"] + "/env/conda_bcftools.yaml"
     shell:
         """
             bcftools index -t {input}
