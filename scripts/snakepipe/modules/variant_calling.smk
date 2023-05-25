@@ -1,7 +1,7 @@
 
 rule freebayes:
     input:
-        config["HEAD_DIR"] + "/data/alignment/simulated_reads_to_original_ref.sorted.bam"
+        config["HEAD_DIR"] + "/data/alignment/simulated_reads_to_original_ref.{nb_frag}.sorted.bam"
     log:
         config["HEAD_DIR"] + "/logs/freebayes.log"
     conda:
@@ -11,7 +11,7 @@ rule freebayes:
         maf=0.1,
         mic=20
     output:
-        config["HEAD_DIR"] + "/data/variant_calling/callset.freebayes.vcf"
+        config["HEAD_DIR"] + "/data/variant_calling/callset.{nb_frag}.freebayes.vcf"
     shell:
         """
             freebayes \
@@ -35,7 +35,7 @@ rule freebayes_callset_norm_vcf:
     params:
         ref=config["REF"]
     output:
-        temp(config["HEAD_DIR"] + "/data/variant_calling/callset.freebayes.normalized.vcf")
+        temp(config["HEAD_DIR"] + "/data/variant_calling/callset.{nb_frag}.freebayes.normalized.vcf")
     shell:
         """
             bcftools norm \
@@ -50,7 +50,7 @@ rule freebayes_callset_sort_vcf:
     input:
         rules.freebayes_callset_norm_vcf.output
     output:
-        config["HEAD_DIR"] + "/data/variant_calling/callset.freebayes.normalized.sorted.vcf.gz"
+        config["HEAD_DIR"] + "/data/variant_calling/callset.{nb_frag}.freebayes.normalized.sorted.vcf.gz"
     conda:
         config["HEAD_DIR"] + "/env/conda_bcftools.yaml"
     shell:
@@ -65,7 +65,7 @@ rule freebayes_callset_index_vcf:
     input:
         rules.freebayes_callset_sort_vcf.output
     output:
-        config["HEAD_DIR"] + "/data/variant_calling/callset.freebayes.normalized.sorted.vcf.gz.tbi"
+        config["HEAD_DIR"] + "/data/variant_calling/callset.{nb_frag}.freebayes.normalized.sorted.vcf.gz.tbi"
     conda:
         config["HEAD_DIR"] + "/env/conda_bcftools.yaml"
     shell:
