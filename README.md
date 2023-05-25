@@ -38,12 +38,15 @@ conda install -y -c bioconda snakemake
 
 ## Usage:
 
-The current setup to launch the benchmark pipeline is to edit/create a configuration file for snakemake. Generate a `scripts/snakemake/snake_config.yaml` and edit the following variables:
+The current setup to launch the benchmark pipeline is to edit/create a configuration file for snakemake. Generate a file `scripts/snakepipe/snake_config.yaml` and edit the following variables:
 ```
 HEAD_DIR:
    <path to the cloned repository>
 REF:
    <path to the reference genome>
+NB_FRAGMENTS:
+   - 3000
+   - 6000
 ```
 
 With this configuration file in place you can simply run the snakemake pipeline via:
