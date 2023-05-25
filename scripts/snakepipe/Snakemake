@@ -12,19 +12,20 @@ include: "modules/evaluation.smk"
 
 
 #################### PARAMS
-HEAD_DIR = config["HEAD_DIR"]
-REF      = config["REF"]
+HEAD_DIR     = config["HEAD_DIR"]
+REF          = config["REF"]
+NB_FRAGMENTS = config["NB_FRAGMENTS"]
 
 
 #################### RULES
 rule all:
     input:
         expand(HEAD_DIR + "/data/simulated_hap/simulated.{ext}", ext=["fasta", "vcf", "insertions.fa", "bed"]),
-        expand(HEAD_DIR + "/data/simulated_reads/{mate}.fastq", mate=["R1", "R2"]),
-        expand(HEAD_DIR + "/data/simulated_reads/simulated.sorted.{ext}", ext=["bam", "bam.bai"]),
-        expand(config["HEAD_DIR"] + "/data/evaluation/freebayes.variant_calling_{ext}", ext=["detail_metrics", "summary_metrics"]),
-        HEAD_DIR + "/data/alignment/simulated_reads_to_original_ref.sorted.bam.bai",
-        HEAD_DIR + "/data/variant_calling/callset.freebayes.normalized.sorted.vcf.gz.tbi",
+        expand(HEAD_DIR + "/data/simulated_reads/{mate}.{nb_frag}.fastq", mate=["R1", "R2"], nb_frag=NB_FRAGMENTS),
+        expand(HEAD_DIR + "/data/simulated_reads/simulated.{nb_frag}.sorted.{ext}", nb_frag=NB_FRAGMENTS, ext=["bam", "bam.bai"]),
+        expand(HEAD_DIR + "/data/evaluation/eval.{nb_frag}.freebayes.variant_calling_{ext}", nb_frag=NB_FRAGMENTS, ext=["detail_metrics", "summary_metrics"]),
+        expand(HEAD_DIR + "/data/alignment/simulated_reads_to_original_ref.{nb_frag}.sorted.bam.bai", nb_frag=NB_FRAGMENTS),
+        expand(HEAD_DIR + "/data/variant_calling/callset.{nb_frag}.freebayes.normalized.sorted.vcf.gz.tbi", nb_frag=NB_FRAGMENTS),
         HEAD_DIR + "/data/simulated_hap/simulated.normalized.sorted.vcf.gz.tbi"
 
 

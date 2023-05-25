@@ -16,10 +16,10 @@ rule survivor_simsv:
         snp_freq = 0.01,
         outmode  = 0
     output:
-        fasta = config["HEAD_DIR"] + "/data/simulated_hap/simulated.fasta",
-        vcf   = config["HEAD_DIR"] + "/data/simulated_hap/simulated.vcf",
-        ins   = config["HEAD_DIR"] + "/data/simulated_hap/simulated.insertions.fa",
-        bed   = config["HEAD_DIR"] + "/data/simulated_hap/simulated.bed"
+        fasta  = config["HEAD_DIR"] + "/data/simulated_hap/simulated.fasta",
+        vcf    = config["HEAD_DIR"] + "/data/simulated_hap/simulated.vcf",
+        ins    = config["HEAD_DIR"] + "/data/simulated_hap/simulated.insertions.fa",
+        bed    = config["HEAD_DIR"] + "/data/simulated_hap/simulated.bed"
     log:
         config["HEAD_DIR"] + "/logs/survivor_simsv.log"
     shell:

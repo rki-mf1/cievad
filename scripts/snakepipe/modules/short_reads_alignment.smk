@@ -1,11 +1,11 @@
 
 rule short_read_alignment:
     input:
-        r1  = config["HEAD_DIR"] + "/data/simulated_reads/R1.fastq",
-        r2  = config["HEAD_DIR"] + "/data/simulated_reads/R2.fastq",
+        r1  = config["HEAD_DIR"] + "/data/simulated_reads/R1.{nb_frag}.fastq",
+        r2  = config["HEAD_DIR"] + "/data/simulated_reads/R2.{nb_frag}.fastq",
         idx = expand(config["REF"] + ".{ext}", ext=["bwt", "pac", "ann", "amb", "sa"])
     output:
-        config["HEAD_DIR"] + "/data/alignment/simulated_reads_to_original_ref.sorted.bam"
+        config["HEAD_DIR"] + "/data/alignment/simulated_reads_to_original_ref.{nb_frag}.sorted.bam"
     conda:
         config["HEAD_DIR"] + "/env/conda_bwa_and_samtools.yaml"
     log:
@@ -31,7 +31,7 @@ rule short_read_alignment_bam_index:
     input:
         rules.short_read_alignment.output
     output:
-        config["HEAD_DIR"] + "/data/alignment/simulated_reads_to_original_ref.sorted.bam.bai"
+        config["HEAD_DIR"] + "/data/alignment/simulated_reads_to_original_ref.{nb_frag}.sorted.bam.bai"
     conda:
         config["HEAD_DIR"] + "/env/conda_bwa_and_samtools.yaml"
     log:
