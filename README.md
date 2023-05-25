@@ -51,5 +51,5 @@ NB_FRAGMENTS:
 
 With this configuration file in place you can simply run the snakemake pipeline via:
 ```
-snakemake -p --use-conda --cores 1 -s scripts/snakemake/Snakemake
+snakemake -p --use-conda --cores 1 -s scripts/snakepipe/Snakemake
 ```
