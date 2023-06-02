@@ -3,8 +3,8 @@ rule ci_hap_simulator:
     input:
         ref   = config["REF"]
     output:
-        fasta = config["HEAD_DIR"] + "/data-ci/simulated_hap{sample}.fasta",
-        vcf   = config["HEAD_DIR"] + "/data-ci/simulated_hap{sample}.vcf",
+        fasta = config["HEAD_DIR"] + "/data-ci/simulated_hap{sample}/simulated.fasta",
+        vcf   = config["HEAD_DIR"] + "/data-ci/simulated_hap{sample}/simulated.vcf",
     conda:
         config["HEAD_DIR"] + "/env/conda_ci.yaml"
     log:
