@@ -8,5 +8,6 @@ data/*
 logs/*
 
 scripts/snakepipe/snake_config.yaml
+scripts/snakepipe-ci/snake_config.yaml
 
 .snakemake/

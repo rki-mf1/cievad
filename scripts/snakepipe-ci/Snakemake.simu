@@ -1,0 +1,13 @@
+
+#################### CONFIG
+configfile: "scripts/snakepipe-ci/snake_config.yaml"
+
+
+#################### INCLUDES
+include: "include/ci-hap-simulator.smk"
+
+
+#################### PARAMS
+HEAD_DIR = config["HEAD_DIR"]
+REF      = config["REF"]
+SAMPLES  = config["SAMPLES"]
