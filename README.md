@@ -5,6 +5,7 @@ Variant calling benchmark accompanying the IMS-MP project
 1. [Requirements](#requirements)
 2. [Installation](#installation)
 3. [Usage](#usage)
+4. [Help](#help)
 
 
 ## Requirements:
@@ -53,3 +54,7 @@ With this configuration file in place you can simply run the snakemake pipeline 
 ```
 snakemake -p --use-conda --cores 1 -s scripts/snakepipe/Snakemake
 ```
+
+## Help:
+
+Please visit the project [wiki](https://github.com/rki-mf1/imsmp-variant-calling-benchmark/wiki) for more information, help and FAQs.
