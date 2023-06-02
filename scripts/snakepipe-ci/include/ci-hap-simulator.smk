@@ -8,7 +8,7 @@ rule ci_hap_simulator:
     conda:
         config["HEAD_DIR"] + "/env/conda_ci.yaml"
     log:
-        config["HEAD_DIR"] + "logs/ci/mason_variator.log"
+        config["HEAD_DIR"] + "logs/ci/mason_variator.hap{sample}.log"
     shell:
         """
             mason_variator \
@@ -24,5 +24,5 @@ rule ci_hap_simulator:
                 --sv-inversion-rate 0 \
                 --sv-translocation-rate 0 \
                 --sv-duplication-rate 0 \
-                2>> {log}
+                2> {log}
         """

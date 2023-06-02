@@ -5,6 +5,8 @@ bin/*
 data/*
 !data/configs
 
+data-ci/*
+
 logs/*
 
 scripts/snakepipe/snake_config.yaml

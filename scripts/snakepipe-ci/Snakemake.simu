@@ -6,6 +6,7 @@ configfile: "scripts/snakepipe-ci/snake_config.yaml"
 #################### INCLUDES
 include: "include/ci-hap-simulator.smk"
 include: "include/ci-truth-vcf-norm.smk"
+include: "include/ci-read-simulator.smk"
 
 
 #################### PARAMS
@@ -17,7 +18,8 @@ SAMPLES  = config["SAMPLES"]
 #################### RULES
 rule all:
     input:
-        simulated_haplotypes = expand(config["HEAD_DIR"] + "/data-ci/simulated_hap{s}/simulated.fasta", s=SAMPLES),
-        simulated_variants   = expand(config["HEAD_DIR"] + "/data-ci/simulated_hap{s}/simulated.vcf"  , s=SAMPLES),
+        simulated_haplotypes        = expand(config["HEAD_DIR"] + "/data-ci/simulated_hap{s}/simulated.fasta", s=SAMPLES),
+        simulated_variants          = expand(config["HEAD_DIR"] + "/data-ci/simulated_hap{s}/simulated.vcf"  , s=SAMPLES),
         simulated_norm_variants     = expand(config["HEAD_DIR"] + "/data-ci/simulated_hap{s}/simulated.normalized.sorted.vcf.gz"     , s=SAMPLES),
-        simulated_norm_variants_idx = expand(config["HEAD_DIR"] + "/data-ci/simulated_hap{s}/simulated.normalized.sorted.vcf.gz.tbi" , s=SAMPLES)
+        simulated_norm_variants_idx = expand(config["HEAD_DIR"] + "/data-ci/simulated_hap{s}/simulated.normalized.sorted.vcf.gz.tbi" , s=SAMPLES),
+        simulated_read              = expand(config["HEAD_DIR"] + "/data-ci/simulated_hap{s}/simulated.{r}.fastq", s=SAMPLES, r=["R1", "R2"])

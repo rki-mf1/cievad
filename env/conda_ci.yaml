@@ -58,6 +58,7 @@ dependencies:
   - pyyaml=5.4.1=py36h8f6f2f9_1
   - readline=8.2=h8228510_1
   - requests=2.12.5=py36_0
+  - samtools=1.17=hd87286a_1
   - setuptools=49.6.0=py36h5fab9bb_3
   - six=1.16.0=pyh6c4a22f_0
   - snakemake=3.13.3=py36_0

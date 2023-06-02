@@ -1,3 +1,4 @@
+
 rule ci_truth_vcf_norm:
     input:
         rules.ci_hap_simulator.output.vcf
@@ -8,7 +9,7 @@ rule ci_truth_vcf_norm:
     conda:
         config["HEAD_DIR"] + "/env/conda_ci.yaml"
     log:
-        config["HEAD_DIR"] + "/logs/ci_truth_vcf_norm.log"
+        config["HEAD_DIR"] + "/logs/ci_truth_vcf_norm.hap{sample}.log"
     shell:
         """
             bcftools norm \
@@ -26,6 +27,8 @@ rule ci_truth_vcf_sort:
         config["HEAD_DIR"] + "/data-ci/simulated_hap{sample}/simulated.normalized.sorted.vcf.gz"
     conda:
         config["HEAD_DIR"] + "/env/conda_ci.yaml"
+    log:
+        config["HEAD_DIR"] + "/logs/ci_truth_vcf_sort.hap{sample}.log"
     shell:
         """
             bcftools sort \
