@@ -1,6 +1,6 @@
 
 #################### CONFIG
-configfile: "scripts/snakepipe-ci/snake_config.yaml"
+configfile: "scripts/snakepipe-ci/snake_config_simu.yaml"
 
 
 #################### INCLUDES

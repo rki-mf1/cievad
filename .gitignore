@@ -9,7 +9,7 @@ data-ci/*
 
 logs/*
 
-scripts/snakepipe/snake_config.yaml
-scripts/snakepipe-ci/snake_config.yaml
+scripts/snakepipe/snake_config*
+scripts/snakepipe-ci/snake_config*
 
 .snakemake/
