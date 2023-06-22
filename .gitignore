@@ -13,3 +13,5 @@ scripts/snakepipe/snake_config*
 scripts/snakepipe-ci/snake_config*
 
 .snakemake/
+
+reference/
