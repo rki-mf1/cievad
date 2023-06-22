@@ -1,0 +1,19 @@
+
+#################### CONFIG
+configfile: "scripts/snakepipe-ci/snake_config_eval_readbased.yaml"
+
+
+#################### INCLUDES
+include: "include/ci-eval-read-based.smk"
+
+
+#################### PARAMS
+HEAD_DIR     = config["HEAD_DIR"]
+SAMPLES      = config["SAMPLES"]
+RESULTS_DIR  = config["RESULTS_DIR"]        # absolute path to CoVpipe2 results dir
+
+
+#################### RULES
+rule all:
+    input:
+        expand(config["HEAD_DIR"] + "/data-ci/simulated_hap{s}/eval.picard.readbased.{e}", e=["variant_calling_detail_metrics", "variant_calling_summary_metrics"], s=SAMPLES)
