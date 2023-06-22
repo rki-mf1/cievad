@@ -8,10 +8,9 @@ include: "include/ci-eval-read-based.smk"
 
 
 #################### PARAMS
-HEAD_DIR = config["HEAD_DIR"]
-SAMPLES  = config["SAMPLES"]
-CALLSET  = config["CALLSET"]        # file relative to sample folder
-CALLIDX  = config["CALLSET_IDX"]    # file relative to sample folder
+HEAD_DIR     = config["HEAD_DIR"]
+SAMPLES      = config["SAMPLES"]
+RESULTS_DIR  = config["RESULTS_DIR"]        # absolute path to CoVpipe2 results dir
 
 
 #################### RULES

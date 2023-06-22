@@ -1,10 +1,23 @@
 
+rule ci_evaluation_index_vcf:
+    input:
+        vcf      = config["RESULTS_DIR"] + "/03-Variant-Calling/simulated_hap{sample}/simulated_hap{sample}.filtered.gt_adjust.filtered_indels.vcf.gz"
+    output:
+        idx      = config["RESULTS_DIR"] + "/03-Variant-Calling/simulated_hap{sample}/simulated_hap{sample}.filtered.gt_adjust.filtered_indels.vcf.gz.tbi"
+    conda:
+        config["HEAD_DIR"] + "/env/conda_ci.yaml"
+    shell:
+        """
+            bcftools index -t {input.vcf}
+        """
+
+
 rule ci_evaluation_readbased:
     input:
-        truthset = config["HEAD_DIR"] + "/data-ci/simulated_hap{sample}/simulated.normalized.sorted.vcf.gz",
-        truthidx = config["HEAD_DIR"] + "/data-ci/simulated_hap{sample}/simulated.normalized.sorted.vcf.gz.tbi",
-        callset  = config["HEAD_DIR"] + "/data-ci/simulated_hap{sample}/" + config["CALLSET"],
-        callidx  = config["HEAD_DIR"] + "/data-ci/simulated_hap{sample}/" + config["CALLSET_IDX"]
+        truthset = config["HEAD_DIR"]    + "/data-ci/simulated_hap{sample}/simulated.normalized.sorted.vcf.gz",
+        truthidx = config["HEAD_DIR"]    + "/data-ci/simulated_hap{sample}/simulated.normalized.sorted.vcf.gz.tbi",
+        callset  = config["RESULTS_DIR"] + "/03-Variant-Calling/simulated_hap{sample}/simulated_hap{sample}.filtered.gt_adjust.filtered_indels.vcf.gz",
+        callidx  = rules.ci_evaluation_index_vcf.output.idx
     params:
         prefix   = config["HEAD_DIR"] + "/data-ci/simulated_hap{sample}/eval.picard.readbased"
     output:
