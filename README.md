@@ -43,7 +43,7 @@ Running any of the benchmarking workflows consists of two main steps:
 
 ### Config files
 The current setup to launch the workflows of this repository is to create or edit a configuration file in _yaml_ format for each of the Snakemake workflows.
-All parameters required for a workflow that have to be set within the config file are listed is the corresponding Snakemake file's `PARAMS` section and can be found in this repository's [wiki](https://github.com/rki-mf1/imsmp-variant-calling-benchmark/wiki) together with some more explanation. <br>
+All parameters required for a workflow that have to be set within the config file are listed is the corresponding Snakemake file's `PARAMS` section and can be found in this repository's [wiki](https://github.com/rki-mf1/imsmp-variant-calling-benchmark/wiki/Confiluration-files) together with some more explanation. <br>
 
 An example configuration file `scripts/snakepipe/snake_config.yaml` could look like the following:
 
