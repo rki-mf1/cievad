@@ -1,0 +1,22 @@
+#################### PREAMBLE
+from snakemake.utils import min_version
+min_version("6.0")
+
+
+#################### CONFIG
+configfile: "configs/snakemake/eval/ngs/vcf/snake_config.yaml"
+
+
+#################### INCLUDES
+include: "../../../include/eval-vcf.smk"
+
+
+#################### PARAMS
+HEAD_DIR     = config["HEAD_DIR"]
+SAMPLES      = config["SAMPLES"]
+
+
+#################### RULES
+rule all:
+    input:
+        expand(config["HEAD_DIR"] + "/data/simulated_hap{s}/eval.picard.{e}", e=["variant_calling_detail_metrics", "variant_calling_summary_metrics"], s=SAMPLES)

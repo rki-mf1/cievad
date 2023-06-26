@@ -1,14 +1,14 @@
 
-rule ci_hap_simulator:
+rule hap_simulator:
     input:
         ref   = config["REF"]
     output:
-        fasta = config["HEAD_DIR"] + "/data-ci/simulated_hap{sample}/simulated.fasta",
-        vcf   = config["HEAD_DIR"] + "/data-ci/simulated_hap{sample}/simulated.vcf",
+        fasta = config["HEAD_DIR"] + "/data/simulated_hap{sample}/simulated.fasta",
+        vcf   = config["HEAD_DIR"] + "/data/simulated_hap{sample}/simulated.vcf",
     conda:
-        config["HEAD_DIR"] + "/env/conda_ci.yaml"
+        config["HEAD_DIR"] + "/env/conda_mason.yaml"
     log:
-        config["HEAD_DIR"] + "logs/ci/mason_variator.hap{sample}.log"
+        config["HEAD_DIR"] + "/logs/mason/mason_variator.hap{sample}.log"
     shell:
         """
             mason_variator \

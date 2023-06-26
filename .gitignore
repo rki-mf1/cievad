@@ -3,15 +3,12 @@ bin/*
 !bin/SURVIVOR
 
 data/*
-!data/configs
-
 data-ci/*
 
 logs/*
 
-scripts/snakepipe/snake_config*
-scripts/snakepipe-ci/snake_config*
-
 .snakemake/
 
 reference/
+
+configs/

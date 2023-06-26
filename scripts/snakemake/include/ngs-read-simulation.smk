@@ -1,19 +1,19 @@
 
-rule ci_read_simulator:
+rule ngs_read_simulator:
     input:
-        simu_hap = config["HEAD_DIR"] + "/data-ci/simulated_hap{sample}/simulated.fasta"
+        simu_hap = config["HEAD_DIR"] + "/data/simulated_hap{sample}/simulated.fasta"
     output:
-        r1       = config["HEAD_DIR"] + "/data-ci/simulated_hap{sample}/simulated.R1.fastq",
-        r2       = config["HEAD_DIR"] + "/data-ci/simulated_hap{sample}/simulated.R2.fastq"
-#        ra = temp(config["HEAD_DIR"] + "/data-ci/simulated_hap{sample}/simulated.bam")
+        r1       = config["HEAD_DIR"] + "/data/simulated_hap{sample}/simulated.ngs.R1.fastq",
+        r2       = config["HEAD_DIR"] + "/data/simulated_hap{sample}/simulated.ngs.R2.fastq"
+#        ra = temp(config["HEAD_DIR"] + "/data/simulated_hap{sample}/simulated.bam")
     params:
         nb_frag = 3000
     threads:
         4
     conda:
-        config["HEAD_DIR"] + "/env/conda_ci.yaml"
+        config["HEAD_DIR"] + "/env/conda_mason.yaml"
     log:
-        config["HEAD_DIR"] + "/logs/ci_read_simulator.hap{sample}.log"
+        config["HEAD_DIR"] + "/logs/mason/mason_simulator.hap{sample}.log"
     shell:
         """
             mason_simulator \
@@ -30,25 +30,25 @@ rule ci_read_simulator:
         """
 #                --out-alignment {output.ra} \
 
-#rule ci_simulated_read_sort:
+#rule ngs_read_sort:
 #    input:
-#        rules.ci_read_simulator.output.ra
+#        rules.ngs_simulator.output.ra
 #    output:
-#        config["HEAD_DIR"] + "/data-ci/simulated_hap{samples}/simulated.sorted.bam"
+#        config["HEAD_DIR"] + "/data/simulated_hap{samples}/simulated.sorted.bam"
 #    conda:
-#        config["HEAD_DIR"] + "/env/conda_ci.yaml"
+#        config["HEAD_DIR"] + "/env/conda_bwa_and_samtools.yaml"
 #    shell:
 #        """
 #            samtools sort -o {output} {input}
 #        """
 
-#rule ci_simulated_read_index:
+#rule ngs_read_index:
 #    input:
-#        rules.ci_simulated_read_sort.output
+#        rules.ngs_read_sort.output
 #    output:
 #        config["HEAD_DIR"] + "/data-ci/simulated_hap{samples}/simulated.sorted.bam.bai"
 #    conda:
-#        config["HEAD_DIR"] + "/env/conda_ci.yaml"
+#        config["HEAD_DIR"] + "/env/conda_bwa_and_samtools.yaml"
 #    shell:
 #        """
 #            samtools index {input}
