@@ -1,6 +1,6 @@
 # imsmp-variant-calling-benchmark
 ![Static Badge](https://img.shields.io/badge/snakemake-≥5.7.0-brightgreen)
-![Static Badge](https://img.shields.io/badge/requires-conda-brightgreen)
+![Static Badge](https://img.shields.io/badge/requires-conda-blue)
 
 Workflows for benchmarking and continuous integration of variant calls based on the Snakemake workflow language.
 
@@ -46,7 +46,7 @@ Running any of the workflows consists of two main steps:
 
 ### Config files
 Each workflow is defined by a _Snakefile_ which again requires a configuration file in _yaml_ format.
-The designated location within this repository and all parameters of a workflow that have to be set within the configuration file are listed is the Snakemake file's `CONFIG` and `PARAMS` section, respectively.
+The designated location within this repository and all parameters of a workflow that have to be set within the configuration file are listed in the Snakefile's `CONFIG` and `PARAMS` section, respectively.
 This repository's [wiki page](https://github.com/rki-mf1/imsmp-variant-calling-benchmark/wiki/Confiluration-files) contains more explanation, details and examples of configuration files. <br>
 
 An example configuration file `snake_config.yaml` could look like the following:
@@ -67,14 +67,14 @@ SAMPLES:
 ### Run snakemake
 With a configuration file in place running a Snakemake workflow could look like the following:
 ```
-snakemake -p --use-conda --cores 4 -s scripts/snakemake/simu/ngs/Snakemake
+snakemake -p --use-conda --cores 4 -s scripts/snakemake/simu/ngs/Snakefile
 ```
 
-The `Snakemake` files, the files that define a workflow, are configured in a way s.t. they find the configuration file automatically.
+The `Snakefile`, the files that define a workflow, are configured in a way s.t. they find the configuration files automatically.
 
 <details><summary>⚠️ Please run Snakemake from the root directory </summary>
 Without further ado, please run the Snakemake workflows from a terminal at the top folder (root directory) of this project.
-Otherwise relative paths within the workflow might be invalid.
+Otherwise relative paths within the workflows might be invalid.
 </details>
 
 <details><summary>⚠️ Caution with outdated software packages </summary>
