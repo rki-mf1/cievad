@@ -19,4 +19,5 @@ SAMPLES      = config["SAMPLES"]
 #################### RULES
 rule all:
     input:
-        expand(config["HEAD_DIR"] + "/data/simulated_hap{s}/eval.picard.{e}", e=["variant_calling_detail_metrics", "variant_calling_summary_metrics"], s=SAMPLES)
+        expand(config["HEAD_DIR"] + "/data/simulated_hap{s}/eval.picard.{e}", e=["variant_calling_detail_metrics", "variant_calling_summary_metrics"], s=SAMPLES),
+        HEAD_DIR + "/results/variant_calling_summary_ngs"

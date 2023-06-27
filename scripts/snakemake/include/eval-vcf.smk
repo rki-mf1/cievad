@@ -30,3 +30,16 @@ rule vcf_evaluation:
                 --DBSNP {input.truthset} \
                 -O {params.prefix}
         """
+
+
+rule report:
+    input:
+        expand(config["HEAD_DIR"] + "/data/simulated_hap{sample}/eval.picard.variant_calling_summary_metrics", sample=config["SAMPLES"])
+    output:
+        config["HEAD_DIR"] + "/results/variant_calling_summary_ngs"
+    params:
+        head_dir = config["HEAD_DIR"]
+    shell:
+        """
+            sh {params.head_dir}/scripts/eval/picard_summary_of_summaries.sh {params.head_dir} > {output}
+        """
