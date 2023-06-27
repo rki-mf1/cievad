@@ -1,5 +1,7 @@
 # imsmp-variant-calling-benchmark
-<img alt="https://img.shields.io/badge/snakemake-≥5.7.0-brightgreen.svg?style=flat-square" src="https://img.shields.io/badge/snakemake-≥5.7.0-brightgreen.svg?style=flat-square">
+![Static Badge](https://img.shields.io/badge/snakemake-≥5.7.0-brightgreen)
+![Static Badge](https://img.shields.io/badge/requires-conda-brightgreen)
+
 Workflows for benchmarking and continuous integration of variant calls based on the Snakemake workflow language.
 
 ## Contents:
@@ -17,12 +19,14 @@ Workflows for benchmarking and continuous integration of variant calls based on 
 | [conda](https://docs.conda.io/en/latest/) | vers. 23.5.0 |
 | [snakemake](https://snakemake.readthedocs.io/en/stable/) | vers. 7.25.3 |
 
-Prior to the installation make sure your system meets all the requirements. Conda is required to launch individual steps of the pipeline. Snakemake is the current choice of workflow language for this pipeline and can easily be installed via conda as well. <br>
+Prior to the installation make sure your system meets all the requirements.
+Conda is required to launch individual steps of the workflows.
+Snakemake is the current choice of workflow language for this pipeline and can easily be installed via conda as well. <br>
 
 
 ## Installation:
 
-The pipeline only needs to be downloaded, no installation of any internal components required.
+The workflows only need to be downloaded, no installation of any internal components required.
 ```
 git clone https://github.com/rki-mf1/imsmp-variant-calling-benchmark.git
 ```
@@ -36,13 +40,14 @@ conda install -y -c bioconda snakemake">=5.7"
 
 ## Usage:
 
-Running any of the benchmarking workflows consists of two main steps:
+Running any of the workflows consists of two main steps:
    1. creating a configuration _yaml_ file
    2. running a snakemake workflow
 
 ### Config files
-The current setup to launch the workflows of this repository is to create or edit a configuration file in _yaml_ format for each of the Snakemake workflows.
-All parameters required for a workflow that have to be set within the config file are listed is the corresponding Snakemake file's `PARAMS` section and can be found in this repository's [wiki](https://github.com/rki-mf1/imsmp-variant-calling-benchmark/wiki/Confiluration-files) together with some more explanation. <br>
+Each workflow is defined by a _Snakefile_ which again requires a configuration file in _yaml_ format.
+The designated location within this repository and all parameters of a workflow that have to be set within the configuration file are listed is the Snakemake file's `CONFIG` and `PARAMS` section, respectively.
+This repository's [wiki page](https://github.com/rki-mf1/imsmp-variant-calling-benchmark/wiki/Confiluration-files) contains more explanation, details and examples of configuration files. <br>
 
 An example configuration file `snake_config.yaml` could look like the following:
 
@@ -51,23 +56,30 @@ HEAD_DIR:
    <path to this cloned repository>
 REF:
    <path to my reference genome>
+SAMPLES:
+   - "001"
+   - "002"
+   - "003"
 ```
 
-:construction: (TODO) Explain where configs have to go <br>
-:construction: (TODO) There will likely be a simplification, e.g. a python module that generates this config in the right location 
+:construction: (TODO) There will likely be a simplification, e.g. a python module that generates the configs in the right location 
 
 ### Run snakemake
-With a configuration file in place you can simply run the snakemake pipeline via:
+With a configuration file in place running a Snakemake workflow could look like the following:
 ```
 snakemake -p --use-conda --cores 4 -s scripts/snakemake/simu/ngs/Snakemake
 ```
 
 The `Snakemake` files, the files that define a workflow, are configured in a way s.t. they find the configuration file automatically.
 
-⚠️ Without further ado, please run the pipelines from the command line at the top folder of this project.
+<details><summary>⚠️ Please run Snakemake from the root directory </summary>
+Without further ado, please run the Snakemake workflows from a terminal at the top folder (root directory) of this project.
+Otherwise relative paths within the workflow might be invalid.
+</details>
 
 <details><summary>⚠️ Caution with outdated software packages </summary>
-It is highly recommended to let the workflows utilize their designated conda environments (`--use-conda`) even if the required software is already available on the system. Outdated software packages might break the functionality of certain workflows (e.g. older versions of bcftools do not split multi-allelic sites correctly).
+It is highly recommended to let the workflows utilize their designated conda environments (--use-conda) even if the required software is already available on the system.
+Outdated software packages might break the functionality of certain workflows (e.g. older versions of bcftools do not split multi-allelic sites correctly).
 </details>
 
 ## Help:
