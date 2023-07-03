@@ -1,5 +1,5 @@
 # imsmp-variant-calling-benchmark
-![Static Badge](https://img.shields.io/badge/snakemake-≥5.7.0-brightgreen)
+![Static Badge](https://img.shields.io/badge/snakemake-≥6.0.0-brightgreen)
 ![Static Badge](https://img.shields.io/badge/requires-conda-blue)
 
 Workflows for benchmarking and continuous integration of variant calls based on the Snakemake workflow language.

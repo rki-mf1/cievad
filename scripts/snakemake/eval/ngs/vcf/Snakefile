@@ -8,6 +8,7 @@ configfile: "configs/snakemake/eval/ngs/vcf/snake_config.yaml"
 
 
 #################### INCLUDES
+include: "../../../include/vcf-norm-call.smk"
 include: "../../../include/eval-vcf.smk"
 
 
@@ -19,5 +20,6 @@ SAMPLES      = config["SAMPLES"]
 #################### RULES
 rule all:
     input:
+        expand(config["HEAD_DIR"] + "/data/simulated_hap{s}/callset.normalized.sorted.vcf.gz.tbi", s=SAMPLES),
         expand(config["HEAD_DIR"] + "/data/simulated_hap{s}/eval.picard.{e}", e=["variant_calling_detail_metrics", "variant_calling_summary_metrics"], s=SAMPLES),
         HEAD_DIR + "/results/variant_calling_summary_ngs"
