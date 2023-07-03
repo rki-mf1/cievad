@@ -8,9 +8,9 @@ configfile: "configs/snakemake/simu/ngs/snake_config.yaml"
 
 
 #################### INCLUDES
-include: "../../include/hap-simulator.smk"
-include: "../../include/ngs-read-simulation.smk"
-include: "../../include/vcf-norm.smk"
+include: "../../include/simu-hap.smk"
+include: "../../include/simu-ngs.smk"
+include: "../../include/vcf-norm-truth.smk"
 
 
 #################### PARAMS

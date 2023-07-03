@@ -1,0 +1,74 @@
+from snakemake.utils import min_version
+min_version("6.0")
+
+
+rule norm:
+    input:
+        vcf="{prefix}.vcf",
+        ref="genome.fasta"
+    output:
+        "{prefix}.norm.vcf"
+    conda:
+        "bcftools.yaml"
+    log:
+        "{prefix}.norm.log"
+    shell:
+        """
+        bcftools norm \
+            --fasta-ref {input.ref} \
+            --check-ref s \
+            --multiallelics -both \
+            -o {output} \
+            {input.vcf} \
+            > {log}
+        """
+
+
+rule norm_no_ref_check:
+    input:
+        "{prefix}.vcf"
+    output:
+        "{prefix}.norm.vcf"
+    conda:
+        "bcftools.yaml"
+    log:
+        "{prefix}.norm.log"
+    shell:
+        """
+        bcftools norm \
+            --multiallelics -both \
+            -o {output} \
+            {input} \
+            > {log}
+        """
+
+
+rule sort:
+    input:
+        "{prefix}.norm.vcf"
+    output:
+        "{prefix}.norm.sorted.vcf.gz"
+    conda:
+        "bcftools.yaml"
+    log:
+        "{prefix}.sort.log"
+    shell:
+        """
+            bcftools sort \
+                -o {output} \
+                -O z \
+                {input}
+        """
+
+
+rule index:
+    input:
+        "{prefix}.norm.sorted.vcf.gz"
+    output:
+        "{prefix}.norm.sorted.vcf.gz.tbi"
+    conda:
+        "bcftools.yaml"
+    shell:
+        """
+            bcftools index -t {input}
+        """
