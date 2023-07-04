@@ -15,6 +15,7 @@ include: "../../../include/eval-vcf.smk"
 #################### PARAMS
 HEAD_DIR     = config["HEAD_DIR"]
 SAMPLES      = config["SAMPLES"]
+NGS_NB_FRAGS = config["NGS_NB_FRAGS"]
 
 
 #################### RULES

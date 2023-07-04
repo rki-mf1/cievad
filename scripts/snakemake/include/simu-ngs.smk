@@ -7,7 +7,7 @@ rule ngs_read_simulator:
         r2       = config["HEAD_DIR"] + "/data/simulated_hap{sample}/simulated.ngs.R2.fastq"
 #        ra = temp(config["HEAD_DIR"] + "/data/simulated_hap{sample}/simulated.bam")
     params:
-        nb_frag = 3000
+        nb_frag  = config["NGS_NB_FRAGS"]
     threads:
         4
     conda:
