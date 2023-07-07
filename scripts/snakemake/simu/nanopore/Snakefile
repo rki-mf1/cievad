@@ -1,0 +1,30 @@
+#################### PREAMBLE
+from snakemake.utils import min_version
+min_version("6.0")
+
+
+#################### CONFIG
+configfile: "configs/snakemake/simu/nanopore/snake_config.yaml"
+
+
+#################### INCLUDES
+include: "../../include/simu-nanopore.smk"
+
+
+#################### PARAMS
+HEAD_DIR      = config["HEAD_DIR"]
+SAMPLES       = config["SAMPLES"]
+DNA_TYPE      = config["DNA_TYPE"]
+MODEL_PREFIX  = config["MODEL_PREFIX"]
+MODEL_CALLER  = config["MODEL_CALLER"]
+MEDIAN_LENGTH = config["MEDIAN_LENGTH"]
+SD_LENGTH     = config["SD_LENGTH"]
+NB_READS      = config["NB_READS"]
+SEED          = config["SEED"]
+
+
+#################### RULES
+rule all:
+    input:
+        reads  = expand(config["HEAD_DIR"] + "/data/simulated_hap{s}/simulated.nanopore_aligned_reads.fasta", s=SAMPLES),
+        errors = expand(config["HEAD_DIR"] + "/data/simulated_hap{s}/simulated.nanopore_aligned_error_profile", s=SAMPLES)
