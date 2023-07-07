@@ -8,22 +8,16 @@ configfile: "configs/snakemake/simu/ngs/snake_config.yaml"
 
 
 #################### INCLUDES
-include: "../../include/simu-hap.smk"
 include: "../../include/simu-ngs.smk"
-include: "../../include/vcf-norm-truth.smk"
 
 
 #################### PARAMS
-HEAD_DIR = config["HEAD_DIR"]
-REF      = config["REF"]
-SAMPLES  = config["SAMPLES"]
+HEAD_DIR     = config["HEAD_DIR"]
+NGS_NB_FRAGS = config["NGS_NB_FRAGS"]
+SAMPLES      = config["SAMPLES"]
 
 
 #################### RULES
 rule all:
     input:
-        simulated_haplotypes        = expand(config["HEAD_DIR"] + "/data/simulated_hap{s}/simulated.fasta", s=SAMPLES),
-        simulated_variants          = expand(config["HEAD_DIR"] + "/data/simulated_hap{s}/simulated.vcf"  , s=SAMPLES),
-        simulated_norm_variants     = expand(config["HEAD_DIR"] + "/data/simulated_hap{s}/simulated.normalized.sorted.vcf.gz"     , s=SAMPLES),
-        simulated_norm_variants_idx = expand(config["HEAD_DIR"] + "/data/simulated_hap{s}/simulated.normalized.sorted.vcf.gz.tbi" , s=SAMPLES),
         simulated_read              = expand(config["HEAD_DIR"] + "/data/simulated_hap{s}/simulated.ngs.{r}.fastq", s=SAMPLES, r=["R1", "R2"])
