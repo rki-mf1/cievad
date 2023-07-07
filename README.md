@@ -35,7 +35,7 @@ One way to install snakemake is to use the conda package manager:
 ```
 conda create -y -n snakemake
 conda activate snakemake
-conda install -y -c bioconda snakemake">=5.7"
+conda install -y -c bioconda snakemake">=6.0"
 ```
 
 ## Usage:
