@@ -3,11 +3,12 @@
 # ----------------------------------------------------------------------------------------
 import sys
 import argparse
-from pkg.configGenerators import generate_config_hap_simu
+from pkg.configGenerators import generate_config_hap_simu, generate_config_ngs_simu, generate_config_eval, generate_config_nanopore_simu
 
 if sys.version_info.major != 3:
     print("Error: Abort: This UI requires python3.")
     exit(1)
+
 
 # ----------------------------------------------------------------------------------------
 # PARSER
@@ -59,6 +60,7 @@ if __name__ == "__main__":
             metavar='INT',
             default = 3000,
             help='Specify the number of genomic fragments used for the reads simulation. This INT*2 will result in the total number of NGS reads.')
+    parser_config_ngs_simu.set_defaults(func=generate_config_ngs_simu)
 
     # parser for generating a config for nanopore read simulation
     parser_config_nanopore_simu = subparsers.add_parser('config-nanopore-simu',
@@ -105,6 +107,7 @@ if __name__ == "__main__":
             metavar='INT',
             default = 479,
             help='Specify a random seed for the nanosim simulator.')
+    parser_config_nanopore_simu.set_defaults(func=generate_config_nanopore_simu)
 
     # parser for generating a config for variant evaluation
     parser_config_eval = subparsers.add_parser('config-eval',
@@ -112,6 +115,7 @@ if __name__ == "__main__":
             formatter_class=argparse.ArgumentDefaultsHelpFormatter,
             parents=[parent_parser], 
             aliases=['confeval'])
+    parser_config_eval.set_defaults(func=generate_config_eval)
 
     args = parser.parse_args()
     args.func(args) if len(sys.argv)>1 else print("Error: Abort: Too few arguments. See help page: python vc_benchmark.py --help")
