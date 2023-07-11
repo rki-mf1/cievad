@@ -1,6 +1,7 @@
 # imsmp-variant-calling-benchmark
-![Static Badge](https://img.shields.io/badge/snakemake-≥6.0.0-brightgreen)
-![Static Badge](https://img.shields.io/badge/requires-conda-blue)
+![Static Badge](https://img.shields.io/badge/conda-required-blue)
+![Static Badge](https://img.shields.io/badge/python-≥3.2-blue)
+![Static Badge](https://img.shields.io/badge/snakemake-≥6.0.0-blue)
 
 Workflows for benchmarking and continuous integration of variant calls based on the Snakemake workflow language.
 
@@ -84,4 +85,5 @@ Outdated software packages might break the functionality of certain workflows (e
 
 ## Help:
 
-Please visit the project [wiki](https://github.com/rki-mf1/imsmp-variant-calling-benchmark/wiki) for more information, help and FAQs.
+:mag: Please visit the project [wiki](https://github.com/rki-mf1/imsmp-variant-calling-benchmark/wiki) for more information, help and FAQs. <br>
+:hammer: Please file issues, bug reports and questions to the [issues](https://github.com/rki-mf1/imsmp-variant-calling-benchmark/issues) section.
