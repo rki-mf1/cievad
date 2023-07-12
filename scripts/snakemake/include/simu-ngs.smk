@@ -9,7 +9,7 @@ rule ngs_read_simulator:
     params:
         nb_frag  = config["NGS_NB_FRAGS"]
     threads:
-        4
+        workflow.cores
     conda:
         config["HEAD_DIR"] + "/env/conda_mason.yaml"
     log:
