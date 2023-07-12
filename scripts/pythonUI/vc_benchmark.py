@@ -4,6 +4,7 @@
 import sys
 import argparse
 from pkg.configGenerators import generate_config_hap_simu, generate_config_ngs_simu, generate_config_eval, generate_config_nanopore_simu
+from pkg.runWorkflows import run_hap_simu, run_ngs_simu, run_nanopore_simu, run_vcf_eval
 
 if sys.version_info.major != 3:
     print("Error: Abort: This UI requires python3.")
@@ -24,6 +25,10 @@ if __name__ == "__main__":
     parser.add_argument('--version', action='version', version="%(prog)s ("+__version__+")")
 
     subparsers = parser.add_subparsers(help='sub-command help')
+
+    # -------------------
+    # CONFIG GENERATORS |
+    # -------------------
 
     # parser for general arguments to be inherited by other parsers
     parent_parser = argparse.ArgumentParser(add_help=False)
@@ -116,6 +121,63 @@ if __name__ == "__main__":
             parents=[parent_parser], 
             aliases=['confeval'])
     parser_config_eval.set_defaults(func=generate_config_eval)
+
+    # ---------------------
+    # SNAKEMAKE WORKFLOWS |
+    # ---------------------
+    parent_parser_snakemake = argparse.ArgumentParser(add_help=False)
+    parent_parser_snakemake.add_argument(
+        '-t', '--threads',
+        type = int,
+        metavar='INT',
+        default = 1,
+        help='Specify the number of CPU cores to be used for the workflow.')
+
+    # parser for running the haplotype simulation
+    parser_run_hap_simu = subparsers.add_parser('run-hap-simu',
+        help='Module to run haplotype simulation.',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        aliases=['runhap'])
+    parser_run_hap_simu.add_argument(
+        '-s', '--snakefile',
+        help='Path to the Snakefile.',
+        default='scripts/snakemake/simu/hap/Snakefile')
+    parser_run_hap_simu.set_defaults(func=run_hap_simu)
+
+    # parser for running the NGS read simulation
+    parser_run_ngs_simu = subparsers.add_parser('run-ngs-simu',
+        help='Module to run NGS read simulation.',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        parents=[parent_parser_snakemake],
+        aliases=['runngs'])
+    parser_run_ngs_simu.add_argument(
+        '-s', '--snakefile',
+        help='Path to the Snakefile.',
+        default='scripts/snakemake/simu/ngs/Snakefile')
+    parser_run_ngs_simu.set_defaults(func=run_ngs_simu)
+
+    # parser for running the Nanopore read simulation
+    parser_run_nanopore_simu = subparsers.add_parser('run-nanopore-simu',
+        help='Module to run Nanopore read simulation.',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        parents=[parent_parser_snakemake],
+        aliases=['runont'])
+    parser_run_nanopore_simu.add_argument(
+        '-s', '--snakefile',
+        help='Path to the Snakefile.',
+        default='scripts/snakemake/simu/nanopore/Snakefile')
+    parser_run_nanopore_simu.set_defaults(func=run_nanopore_simu)
+
+    # parser for running the VCF file-based variant evaluation
+    parser_run_vcf_eval = subparsers.add_parser('run-vcf-eval',
+        help='Module to run VCF file-based variant evaluation.',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        aliases=['runeval'])
+    parser_run_vcf_eval.add_argument(
+        '-s', '--snakefile',
+        help='Path to the Snakefile.',
+        default='scripts/snakemake/eval/ngs/vcf/Snakefile')
+    parser_run_vcf_eval.set_defaults(func=run_vcf_eval)
 
     args = parser.parse_args()
     args.func(args) if len(sys.argv)>1 else print("Error: Abort: Too few arguments. See help page: python vc_benchmark.py --help")
