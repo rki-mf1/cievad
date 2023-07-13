@@ -29,6 +29,7 @@ Having a recent `Snakemake` version installed will be required but the next sect
 
 </details>
 
+
 ## Installation:
 
 1. Download the repository:
@@ -42,51 +43,48 @@ conda env create -f env/conda_snakemake7.yaml
 conda activate snakemake7
 ```
 
+
 ## Usage:
 
-Running any of the workflows consists of two main steps:
-   1. creating a configuration _yaml_ file
-   2. running a snakemake workflow
+This tool suite provides multiple features to simulate training data and evaluate callsets. 
+Running any of the features consists of two principal steps:
+   1. Generating a configuration file
+   2. Running a Snakemake workflow
 
-### Config files
-Each workflow is defined by a _Snakefile_ which again requires a configuration file in _yaml_ format.
-The designated location within this repository and all parameters of a workflow that have to be set within the configuration file are listed in the Snakefile's `CONFIG` and `PARAMS` section, respectively.
-This repository's [wiki page](https://github.com/rki-mf1/imsmp-variant-calling-benchmark/wiki/Confiluration-files) contains more explanation, details and examples of configuration files. <br>
-
-An example configuration file `snake_config.yaml` could look like the following:
-
+### Configuration files
+Each functional feature of the tool suite requires the user to generate a configuration file in _yaml_ format.
+For instance, the _haplotype simulation_ feature requires a configuration file with designated parameters for the haplotype simulation workflow in the second step.
+The python command line interface (CLI) facilitates generating such a configuration file.
+For instance, generating a configuration file for the haplotype simulation (with default parameters) run:
 ```
-HEAD_DIR:
-   <path to this cloned repository>
-REF:
-   <path to my reference genome>
-SAMPLES:
-   - "001"
-   - "002"
-   - "003"
+python scripts/pythonUI/vc_benchmark.py config-hap-simu </path/to/this/repository/> </path/to/a/reference/genome.fasta>
+```
+All modules that generate configuration files (starting with "config-") can be found at the help page of the python CLI:
+   
+```
+python scripts/pythonUI/vc_benchmark.py --help
 ```
 
-:construction: (TODO) There will likely be a simplification, e.g. a python module that generates the configs in the right location 
-
-### Run snakemake
-With a configuration file in place running a Snakemake workflow could look like the following:
+### Snakemake workflows
+The second step of each functional feature is running a Snakemake workflow.
+For instance, the _haplotype simulation_ feature uses the configuration file generated in the first step to run its corresponding Snakemake workflow.
+The python CLI facilitates running such a Snakemake workflow.
+For instance, running the Snakemake workflow for the haplotype simulation (with default parameters) run:
 ```
-snakemake -p --use-conda --cores 4 -s scripts/snakemake/simu/ngs/Snakefile
+python scripts/pythonUI/vc_benchmark.py run-hap-simu
+```
+All modules that run a Snakemake workflow (starting with "run-") can be found at the help page of the python CLI:
+```
+python scripts/pythonUI/vc_benchmark.py --help
 ```
 
-The `Snakefile`, the files that define a workflow, are configured in a way s.t. they find the configuration files automatically.
-
-<details><summary>⚠️ Please run Snakemake from the root directory </summary>
-Without further ado, please run the Snakemake workflows from a terminal at the top folder (root directory) of this project.
+<details><summary>⚠️ Run commands from the root directory </summary>
+Without further ado, please run the commands from a terminal at the top folder (root directory) of this repository.
 Otherwise relative paths within the workflows might be invalid.
 </details>
 
-<details><summary>⚠️ Caution with outdated software packages </summary>
-It is highly recommended to let the workflows utilize their designated conda environments (--use-conda) even if the required software is already available on the system.
-Outdated software packages might break the functionality of certain workflows (e.g. older versions of bcftools do not split multi-allelic sites correctly).
-</details>
 
 ## Help:
 
-:mag: Please visit the project [wiki](https://github.com/rki-mf1/imsmp-variant-calling-benchmark/wiki) for more information, help and FAQs. <br>
-:hammer: Please file issues, bug reports and questions to the [issues](https://github.com/rki-mf1/imsmp-variant-calling-benchmark/issues) section.
+Visit the project [wiki](https://github.com/rki-mf1/imsmp-variant-calling-benchmark/wiki) for more information, help and FAQs. <br>
+Please file issues, bug reports and questions to the [issues](https://github.com/rki-mf1/imsmp-variant-calling-benchmark/issues) section.
