@@ -161,7 +161,7 @@ if __name__ == "__main__":
         help='Module to run Nanopore read simulation.',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
         parents=[parent_parser_snakemake],
-        aliases=['runont'])
+        aliases=['runnano'])
     parser_run_nanopore_simu.add_argument(
         '-s', '--snakefile',
         help='Path to the Snakefile.',
