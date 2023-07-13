@@ -51,11 +51,14 @@ Running any of the features consists of two principal steps:
    1. Generating a configuration file
    2. Running a Snakemake workflow
 
+A full list of features, their respective modules in the python command line interface (CLI) and a description of output files can be found in the [wiki](https://github.com/rki-mf1/imsmp-variant-calling-benchmark/wiki) of this repository.
+The following two subsections are showcasing one particular feature of the tool suite.
+
 ### Configuration files
 Each functional feature of the tool suite requires the user to generate a configuration file in _yaml_ format.
 For instance, the _haplotype simulation_ feature requires a configuration file with designated parameters for the haplotype simulation workflow in the second step.
-The python command line interface (CLI) facilitates generating such a configuration file.
-For instance, generating a configuration file for the haplotype simulation (with default parameters) run:
+The python CLI facilitates generating such a configuration file.
+For instance, in order to generate a configuration file for the haplotype simulation (with default parameters) run:
 ```
 python scripts/pythonUI/vc_benchmark.py config-hap-simu </path/to/this/repository/> </path/to/a/reference/genome.fasta>
 ```
@@ -69,7 +72,7 @@ python scripts/pythonUI/vc_benchmark.py --help
 The second step of each functional feature is running a Snakemake workflow.
 For instance, the _haplotype simulation_ feature uses the configuration file generated in the first step to run its corresponding Snakemake workflow.
 The python CLI facilitates running such a Snakemake workflow.
-For instance, running the Snakemake workflow for the haplotype simulation (with default parameters) run:
+For instance, in order to run the Snakemake workflow for the haplotype simulation (with default parameters) run:
 ```
 python scripts/pythonUI/vc_benchmark.py run-hap-simu
 ```
