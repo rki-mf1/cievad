@@ -15,7 +15,7 @@ rule nanopore_read_simulator:
         nb_reads      = config["NB_READS"],
         seed          = config["SEED"]
     threads:
-        4
+        workflow.cores
     conda:
         config["HEAD_DIR"] + "/env/conda_nanosim.yaml"
     log:

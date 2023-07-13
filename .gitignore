@@ -14,3 +14,7 @@ reference/
 configs/
 
 results/
+
+aux/nanosim_model/human_NA12878_DNA_FAB49712_guppy.tar.gz
+
+*.pyc
