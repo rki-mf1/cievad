@@ -3,8 +3,8 @@
 # ----------------------------------------------------------------------------------------
 import sys
 import argparse
-from pkg.configGenerators import generate_config_hap_simu, generate_config_ngs_simu, generate_config_eval, generate_config_nanopore_simu
-from pkg.runWorkflows import run_hap_simu, run_ngs_simu, run_nanopore_simu, run_vcf_eval
+from pkg.configGenerators import generate_config_hap_simu, generate_config_ngs_simu, generate_config_ampli_simu, generate_config_eval, generate_config_nanopore_simu
+from pkg.runWorkflows import run_hap_simu, run_ngs_simu, run_ampli_simu, run_nanopore_simu, run_vcf_eval
 
 if sys.version_info.major != 3:
     print("Error: Abort: This UI requires python3.")
@@ -15,7 +15,7 @@ if sys.version_info.major != 3:
 # PARSER
 # ----------------------------------------------------------------------------------------
 if __name__ == "__main__":
-    __version_info__ = ('0','0','1')
+    __version_info__ = ('0','0','2')
     __version__ = '.'.join(__version_info__)
 
     parser = argparse.ArgumentParser(
@@ -66,6 +66,20 @@ if __name__ == "__main__":
             default = 3000,
             help='Specify the number of genomic fragments used for the reads simulation. This INT*2 will result in the total number of NGS reads.')
     parser_config_ngs_simu.set_defaults(func=generate_config_ngs_simu)
+
+    # parser for generating a config for amplicon + NGS read simulation
+    parser_config_ampli_simu = subparsers.add_parser('config-ampli-simu',
+            help='Module to create the configuration file for amplicon simulation and subsequent NGS read simulation.',
+            formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+            parents=[parent_parser], 
+            aliases=['confampli'])
+    parser_config_ampli_simu.add_argument(
+            'REF',
+            help='Path to reference genome.')
+    parser_config_ampli_simu.add_argument(
+            'PRIMER',
+            help='Path to primer file.')
+    parser_config_ampli_simu.set_defaults(func=generate_config_ampli_simu)
 
     # parser for generating a config for nanopore read simulation
     parser_config_nanopore_simu = subparsers.add_parser('config-nanopore-simu',
@@ -155,6 +169,17 @@ if __name__ == "__main__":
         help='Path to the Snakefile.',
         default='scripts/snakemake/simu/ngs/Snakefile')
     parser_run_ngs_simu.set_defaults(func=run_ngs_simu)
+
+    # parser for running the amplicon and NGS read simulation
+    parser_run_ampli_simu = subparsers.add_parser('run-ampli-simu',
+        help='Module to run amplicon and NGS read simulation.',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        aliases=['runampli'])
+    parser_run_ampli_simu.add_argument(
+        '-s', '--snakefile',
+        help='Path to the Snakefile.',
+        default='scripts/snakemake/simu/amplicon/Snakefile')
+    parser_run_ampli_simu.set_defaults(func=run_ampli_simu)
 
     # parser for running the Nanopore read simulation
     parser_run_nanopore_simu = subparsers.add_parser('run-nanopore-simu',

@@ -13,6 +13,12 @@ def run_ngs_simu(args):
     os.system('snakemake -p --use-conda --cores ' + str(args.threads) + ' -s ' + args.snakefile)
 
 
+def run_ampli_simu(args):
+    print("Running amplicon and NGS read simulation...\n")
+
+    os.system('snakemake -p --use-conda --cores 1 -s ' + args.snakefile)
+
+
 def run_nanopore_simu(args):
     print("Running Nanopore read simulation...\n")
 
