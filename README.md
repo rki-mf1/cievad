@@ -1,9 +1,8 @@
-# imsmp-variant-calling-benchmark
-![Static Badge](https://img.shields.io/badge/conda-required-blue)
-![Static Badge](https://img.shields.io/badge/python-≥3.2-blue)
-![Static Badge](https://img.shields.io/badge/snakemake-≥6.0.0-blue)
+![Static Badge](https://img.shields.io/badge/requires-conda-blue)
+![Static Badge](https://img.shields.io/badge/requires-snakemake-blue)
 
-This repository provides a tool suite for a simple, streamlined and rapid evaluation of variant callsets (SNPs/indels). Without loss of generality, the modules were implemented for the purpose of benchmarking variant callers, evaluating genomic data workflows or continuous integration of the aforementioned. The underlying workflows utilize the conda package management system and the Snakemake workflow language.
+# CIVaD
+<ins>C</ins>ontinuous <ins>I</ins>ntegration of <ins>Va</ins>riant <ins>D</ins>etection. This repository provides a tool suite for a simple, streamlined and rapid evaluation of genomic variant callsets. Its functionality is primarily designed for the evaluation and continuous integration of genomic variant detection and workflows. The tools suite utilizes the _conda_ package management system and _Snakemake_ workflow language.
 
 ## Contents:
 1. [System requirements](#system-requirements)
@@ -14,16 +13,15 @@ This repository provides a tool suite for a simple, streamlined and rapid evalua
 
 ## System requirements:
 
-This tools suit was developed under Linux/UNIX but might work on other operating systems.
-However, only 64 bits POSIX-compliant operating systems will be officially supported here.
-Having any derivative of the `conda` package management system installed is the only strict on system requirement.
-Having a recent `Snakemake` version installed will be required but the next section also provides instructions on how Snakemake can easily be installed via conda.
+This tool suite was developed under Linux/UNIX and is the only officially supported operating system here.
+Having any derivative of the `conda` package management system installed is the only strict system requirement.
+Having a recent `Snakemake` (≥6.0.0) and `python` (≥3.2) version installed is required too but both can be installed via conda (see [Installation](#installation)).
 
 <details><summary> See tested setups: </summary>
    
 | Requirement | Tested with |
 | --- | --- |
-| 64 bits POSIX-compliant operating system | Ubuntu 20.04.5 LTS |
+| 64 bits operating system | Ubuntu 20.04.5 LTS |
 | [conda](https://docs.conda.io/en/latest/) | vers. 23.5.0 |
 | [snakemake](https://snakemake.readthedocs.io/en/stable/) | vers. 7.25.3 |
 
