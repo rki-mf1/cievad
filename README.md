@@ -2,7 +2,7 @@
 ![Static Badge](https://img.shields.io/badge/requires-snakemake-blue)
 
 # CIVaD
-<ins>C</ins>ontinuous <ins>I</ins>ntegration of <ins>Va</ins>riant <ins>D</ins>etection. This repository provides a tool suite for a simple, streamlined and rapid evaluation of genomic variant callsets. Its functionality is primarily designed for the evaluation and continuous integration of genomic variant detection and workflows. The tools suite utilizes the _conda_ package management system and _Snakemake_ workflow language.
+<ins>C</ins>ontinuous <ins>I</ins>ntegration for <ins>Va</ins>riant <ins>D</ins>etection. This repository provides a tool suite for a simple, streamlined and rapid evaluation of genomic variant callsets. Its functionality is primarily designed for the evaluation and continuous integration of genomic variant detection and workflows. The tools suite utilizes the _conda_ package management system and _Snakemake_ workflow language.
 
 ## Contents:
 1. [System requirements](#system-requirements)
