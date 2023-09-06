@@ -4,7 +4,7 @@ min_version("6.0")
 
 
 #################### CONFIG
-configfile: "configs/snakemake/simu/amplicons/snake_config.yaml"
+configfile: "configs/snake_config_amplicon.yaml"
 
 
 #################### INCLUDES

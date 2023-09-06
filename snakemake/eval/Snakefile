@@ -1,3 +1,27 @@
+#################### PREAMBLE
+from snakemake.utils import min_version
+min_version("6.0")
+
+
+#################### CONFIG
+configfile: "configs/snake_config_eval.yaml"
+
+
+#################### INCLUDES
+include: "../include/vcf-norm-call.smk"
+
+
+#################### PARAMS
+HEAD_DIR     = config["HEAD_DIR"]
+SAMPLES      = config["SAMPLES"]
+
+
+#################### RULES
+rule all:
+    input:
+        expand(config["HEAD_DIR"] + "/data/simulated_hap{s}/callset.normalized.sorted.vcf.gz.tbi", s=SAMPLES),
+        expand(config["HEAD_DIR"] + "/data/simulated_hap{s}/eval.picard.{e}", e=["variant_calling_detail_metrics", "variant_calling_summary_metrics"], s=SAMPLES),
+        HEAD_DIR + "/results/variant_calling_summary_ngs"
 
 
 rule vcf_evaluation:
@@ -33,5 +57,5 @@ rule report:
         head_dir = config["HEAD_DIR"]
     shell:
         """
-            sh {params.head_dir}/scripts/eval/picard_summary_of_summaries.sh {params.head_dir} > {output}
+            sh {params.head_dir}/aux/picard_summary_of_summaries.sh {params.head_dir} > {output}
         """
