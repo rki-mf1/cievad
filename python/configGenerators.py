@@ -11,9 +11,9 @@ def generate_hap_config(args):
     with open("configs/snake_config_haplotype.yaml", 'w') as config :
 
         config.write('HEAD_DIR:\n')
-        config.write('   ' + trim_trailing_slash(args.HEAD_DIR) + '\n\n')
+        config.write('   ' + trim_trailing_slash(args.head_dir) + '\n\n')
         config.write('REF:\n')
-        config.write('   ' + args.REF + '\n\n')
+        config.write('   ' + args.reference + '\n\n')
         config.write('SAMPLES:\n')
 
         padding = int(math.log2(args.nb_samples))
@@ -32,7 +32,7 @@ def generate_ngs_config(args):
     with open("configs/snake_config_ngs.yaml", 'w') as config :
 
         config.write('HEAD_DIR:\n')
-        config.write('   ' + trim_trailing_slash(args.HEAD_DIR) + '\n\n')
+        config.write('   ' + trim_trailing_slash(args.head_dir) + '\n\n')
         config.write('NGS_NB_FRAGS:\n')
         config.write('   ' + str(args.nb_frags) + '\n\n')
         config.write('SAMPLES:\n')
@@ -53,11 +53,11 @@ def generate_ampli_config(args):
     with open("configs/snake_config_amplicon.yaml", 'w') as config :
 
         config.write('HEAD_DIR:\n')
-        config.write('   ' + trim_trailing_slash(args.HEAD_DIR) + '\n\n')
+        config.write('   ' + trim_trailing_slash(args.head_dir) + '\n\n')
         config.write('REF:\n')
-        config.write('   ' + args.REF + '\n\n')
+        config.write('   ' + args.reference + '\n\n')
         config.write('PRIMER:\n')
-        config.write('   ' + args.PRIMER + '\n\n')
+        config.write('   ' + args.primers + '\n\n')
         config.write('SAMPLES:\n')
 
         padding = int(math.log2(args.nb_samples))
@@ -76,7 +76,7 @@ def generate_nanopore_config(args):
     with open("configs/snake_config_nanopore.yaml", 'w') as config :
 
         config.write('HEAD_DIR:\n')
-        config.write('   ' + trim_trailing_slash(args.HEAD_DIR) + '\n\n')
+        config.write('   ' + trim_trailing_slash(args.head_dir) + '\n\n')
         config.write('MODEL_PREFIX:\n')
         config.write('   ' + str(args.model_prefix) + '\n\n')
         config.write('DNA_TYPE:\n')
@@ -109,7 +109,7 @@ def generate_eval_config(args):
     with open("configs/snake_config_eval.yaml", 'w') as config :
 
         config.write('HEAD_DIR:\n')
-        config.write('   ' + trim_trailing_slash(args.HEAD_DIR) + '\n\n')
+        config.write('   ' + trim_trailing_slash(args.head_dir) + '\n\n')
         config.write('SAMPLES:\n')
 
         padding = int(math.log2(args.nb_samples))
