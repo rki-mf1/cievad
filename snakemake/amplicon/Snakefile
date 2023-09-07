@@ -1,0 +1,60 @@
+#################### PREAMBLE
+from snakemake.utils import min_version
+min_version("6.0")
+
+
+#################### CONFIG
+configfile: "configs/snake_config_amplicon.yaml"
+
+
+#################### INCLUDES
+
+#################### PARAMS
+HEAD_DIR     = config["HEAD_DIR"]
+SAMPLES      = config["SAMPLES"]
+
+
+#################### RULES
+rule all:
+    input:
+        simulated_read = expand(config["HEAD_DIR"] + "/data/simulated_hap{s}/simulated.amplicon.ngs.{r}.fastq", s=SAMPLES, r=["R1", "R2"])
+
+rule amplicon_simulator:
+    input:
+        reference = config["REF"],
+        primer    = config["PRIMER"]
+    output:
+        amplicons = config["HEAD_DIR"] + "/data/simulated_hap{sample}/amplicons.fa"
+    log:
+        config["HEAD_DIR"] + "/logs/amplisim/amplisim.hap{sample}.log"
+    shell:
+        """
+            # STATIC COMPILED BINARY OF AMPLISIM WILL BE REPLACED BY A LIVE BUILD OR CONDA
+            ./bin/amplisim-v0_1_0-ubuntu_20_04 \
+                -o {output.amplicons} \
+                {input.reference} \
+                {input.primer} \
+                    > {log} 2>&1
+        """
+
+rule ngs_read_simulator:
+    input:
+        amplicons = rules.amplicon_simulator.output.amplicons
+    output:
+        r1        = config["HEAD_DIR"] + "/data/simulated_hap{sample}/simulated.amplicon.ngs.R1.fastq",
+        r2        = config["HEAD_DIR"] + "/data/simulated_hap{sample}/simulated.amplicon.ngs.R2.fastq"
+    threads:
+        workflow.cores
+    conda:
+        config["HEAD_DIR"] + "/env/conda_mason.yaml"
+    log:
+        config["HEAD_DIR"] + "/logs/mason/mason_frag_sequencing.hap{sample}.log"
+    shell:
+        """
+            mason_frag_sequencing \
+                -i {input.amplicons} \
+                -o  {output.r1} \
+                -or {output.r2} \
+                --illumina-read-length 150 \
+                    > {log} 2>&1
+        """
