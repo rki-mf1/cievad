@@ -58,6 +58,12 @@ if __name__ == "__main__":
             default = 10,
             help='Specify the number of samples to be simulated.')
     parser_hap_group2.add_argument(
+            '--seed',
+            type = int,
+            metavar='INT',
+            default = int(round(time.time())),
+            help='Specify a random seed for the haplotype simulator. Default is current system time in seconds.')
+    parser_hap_group2.add_argument(
             '-r', '--reference',
             metavar='FASTA',
             help='Path to reference genome.')
@@ -151,12 +157,6 @@ if __name__ == "__main__":
         help='Number of CPU threads for the task.',
         metavar='INT',
         default = 1)
-    parser_nanopore.add_argument(
-            '--seed',
-            type = int,
-            metavar='INT',
-            default = int(round(time.time())),
-            help='Specify a random seed for the nanosim simulator. Default is current system time in seconds.')
     parser_nanopore_group1 = parser_nanopore.add_argument_group('Run with config', 'Use a config file (yaml) to generate ONT-style long reads.')
     parser_nanopore_group1.add_argument(
             '-c', '--config',
@@ -175,6 +175,12 @@ if __name__ == "__main__":
             metavar='INT',
             default = 10,
             help='Specify the number of samples to be simulated.')
+    parser_nanopore_group2.add_argument(
+            '--seed',
+            type = int,
+            metavar='INT',
+            default = int(round(time.time())),
+            help='Specify a random seed for the nanosim simulator. Default is current system time in seconds.')
     parser_nanopore_group2.add_argument(
             '-m', '--model-prefix',
             metavar='STR',
