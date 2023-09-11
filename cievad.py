@@ -62,7 +62,7 @@ if __name__ == "__main__":
             type = int,
             metavar='INT',
             default = int(round(time.time())),
-            help='Specify a random seed for the haplotype simulator. Default is current system time in seconds.')
+            help='Specify a random seed. Default is current system time in seconds.')
     parser_hap_group2.add_argument(
             '-r', '--reference',
             metavar='FASTA',
@@ -101,6 +101,12 @@ if __name__ == "__main__":
             default = 10,
             help='Specify the number of samples to be simulated.')
     parser_ngs_group2.add_argument(
+            '--seed',
+            type = int,
+            metavar='INT',
+            default = int(round(time.time())),
+            help='Specify a random seed. Default is current system time in seconds.')
+    parser_ngs_group2.add_argument(
             '-f', '--nb-frags',
             type = int,
             metavar='INT',
@@ -134,6 +140,12 @@ if __name__ == "__main__":
             metavar='INT',
             default = 10,
             help='Specify the number of samples to be simulated.')
+    parser_ampli_group2.add_argument(
+            '--seed',
+            type = int,
+            metavar='INT',
+            default = int(round(time.time())),
+            help='Specify a random seed. Default is current system time in seconds.')
     parser_ampli_group2.add_argument(
             '-r', '--reference',
             metavar='FASTA',
@@ -180,7 +192,7 @@ if __name__ == "__main__":
             type = int,
             metavar='INT',
             default = int(round(time.time())),
-            help='Specify a random seed for the nanosim simulator. Default is current system time in seconds.')
+            help='Specify a random seed. Default is current system time in seconds.')
     parser_nanopore_group2.add_argument(
             '-m', '--model-prefix',
             metavar='STR',

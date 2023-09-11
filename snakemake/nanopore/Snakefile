@@ -43,7 +43,7 @@ rule nanopore_read_simulator:
         median_length = config["MEDIAN_LENGTH"],
         sd_length     = config["SD_LENGTH"],
         nb_reads      = config["NB_READS"],
-        seed          = config["SEED"]
+        seed          = lambda w: (SEED * int(w.sample.lstrip('0'))) % 2147483647       # that's (2^31)-1, the upper bound
     threads:
         workflow.cores
     conda:
