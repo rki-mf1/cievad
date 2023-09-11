@@ -23,7 +23,7 @@ jobs:
         # Specific version of Conda to install after miniconda is located or installed. See https://anaconda.org/anaconda/conda for available "conda" versions.
         conda-version: 23.5.0
         # Environment.yml to create an environment. See https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-from-an-environment-yml-file for more information.
-        environment-file: env/conda_snakemake7.yaml
+        environment-file: /home/runner/work/imsmp-variant-calling-benchmark/env/conda_snakemake7.yaml
         # Environment name (or path) to activate on all shells. Default is `test` which will be created in `$CONDA/envs/test`. If an empty string is used, no environment is activated by default (For `base` activation see the `auto-activate-base` option). If the environment does not exist, it will be created and activated. If `environment-file` is used and you want that to be the environment used, you need to explicitely provide the name of that environment on `activate-environment`. If using sh/bash/cmd.exe shells please read the IMPORTANT! section on the README.md! to properly activate conda environments on these shells.
         activate-environment: snakemake7
         # Conda configuration. If you’d prefer that conda’s base environment not be activated on startup, set the to "false". Default is "true". This setting always overrides if set to "true" or "false". If you want to use the "condarc-file" setting pass and empty string. See https://docs.conda.io/projects/conda/en/latest/user-guide/configuration/ for more information.
