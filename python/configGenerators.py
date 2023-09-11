@@ -14,6 +14,8 @@ def generate_hap_config(args):
         config.write('   ' + trim_trailing_slash(args.head_dir) + '\n\n')
         config.write('REF:\n')
         config.write('   ' + args.reference + '\n\n')
+        config.write('SEED:\n')
+        config.write('   ' + str(args.seed) + '\n\n')
         config.write('SAMPLES:\n')
 
         padding = int(math.log2(args.nb_samples))
@@ -35,6 +37,8 @@ def generate_ngs_config(args):
         config.write('   ' + trim_trailing_slash(args.head_dir) + '\n\n')
         config.write('NGS_NB_FRAGS:\n')
         config.write('   ' + str(args.nb_frags) + '\n\n')
+        config.write('SEED:\n')
+        config.write('   ' + str(args.seed) + '\n\n')
         config.write('SAMPLES:\n')
 
         padding = int(math.log2(args.nb_samples))
@@ -56,6 +60,8 @@ def generate_ampli_config(args):
         config.write('   ' + trim_trailing_slash(args.head_dir) + '\n\n')
         config.write('REF:\n')
         config.write('   ' + args.reference + '\n\n')
+        config.write('SEED:\n')
+        config.write('   ' + str(args.seed) + '\n\n')
         config.write('PRIMER:\n')
         config.write('   ' + args.primers + '\n\n')
         config.write('SAMPLES:\n')

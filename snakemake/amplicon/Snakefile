@@ -12,6 +12,7 @@ configfile: "configs/snake_config_amplicon.yaml"
 #################### PARAMS
 HEAD_DIR     = config["HEAD_DIR"]
 SAMPLES      = config["SAMPLES"]
+SEED         = config["SEED"]
 
 
 #################### RULES
@@ -25,12 +26,15 @@ rule amplicon_simulator:
         primer    = config["PRIMER"]
     output:
         amplicons = config["HEAD_DIR"] + "/data/simulated_hap{sample}/amplicons.fa"
+    params:
+        seed  = lambda w: (SEED * int(w.sample.lstrip('0'))) % 2147483647       # that's (2^31)-1, the upper bound
     log:
         config["HEAD_DIR"] + "/logs/amplisim/amplisim.hap{sample}.log"
     shell:
         """
             # STATIC COMPILED BINARY OF AMPLISIM WILL BE REPLACED BY A LIVE BUILD OR CONDA
             ./bin/amplisim-v0_1_0-ubuntu_20_04 \
+                -s {params.seed} \
                 -o {output.amplicons} \
                 {input.reference} \
                 {input.primer} \
@@ -43,6 +47,8 @@ rule ngs_read_simulator:
     output:
         r1        = config["HEAD_DIR"] + "/data/simulated_hap{sample}/simulated.amplicon.ngs.R1.fastq",
         r2        = config["HEAD_DIR"] + "/data/simulated_hap{sample}/simulated.amplicon.ngs.R2.fastq"
+    params:
+        seed  = lambda w: (SEED * int(w.sample.lstrip('0'))) % 2147483647       # that's (2^31)-1, the upper bound
     threads:
         workflow.cores
     conda:
@@ -55,6 +61,7 @@ rule ngs_read_simulator:
                 -i {input.amplicons} \
                 -o  {output.r1} \
                 -or {output.r2} \
+                --seed {params.seed} \
                 --illumina-read-length 150 \
                     > {log} 2>&1
         """
