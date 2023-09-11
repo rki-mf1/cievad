@@ -1,0 +1,41 @@
+name: tests
+
+on:
+  push:
+    branches: [ "main", "ci" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    - name: Setup Miniconda
+    
+      # You may pin to the exact commit or the version.
+      # uses: conda-incubator/setup-miniconda@3b0f2504dd76ef23b6d31f291f4913fb60ab5ff3
+      uses: conda-incubator/setup-miniconda@v2.2.0
+      
+      with:
+        # Specific version of Conda to install after miniconda is located or installed. See https://anaconda.org/anaconda/conda for available "conda" versions.
+        conda-version: 23.5.0
+        # Environment.yml to create an environment. See https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-from-an-environment-yml-file for more information.
+        environment-file: env/conda_snakemake7.yaml
+        # Environment name (or path) to activate on all shells. Default is `test` which will be created in `$CONDA/envs/test`. If an empty string is used, no environment is activated by default (For `base` activation see the `auto-activate-base` option). If the environment does not exist, it will be created and activated. If `environment-file` is used and you want that to be the environment used, you need to explicitely provide the name of that environment on `activate-environment`. If using sh/bash/cmd.exe shells please read the IMPORTANT! section on the README.md! to properly activate conda environments on these shells.
+        activate-environment: snakemake7
+        # Conda configuration. If you’d prefer that conda’s base environment not be activated on startup, set the to "false". Default is "true". This setting always overrides if set to "true" or "false". If you want to use the "condarc-file" setting pass and empty string. See https://docs.conda.io/projects/conda/en/latest/user-guide/configuration/ for more information.
+        auto-activate-base: false
+        # Conda configuration. Accepts values of "strict", "flexible", and "disabled". The default value is "flexible". With strict channel priority, packages in lower priority channels are not considered if a package with the same name appears in a higher priority channel. With flexible channel priority, the solver may reach into lower priority channels to fulfill dependencies, rather than raising an unsatisfiable error. With channel priority disabled, package version takes precedence, and the configured priority of channels is used only to break ties. In previous versions of conda, this parameter was configured as either "true" or "false". "true" is now an alias to "flexible". See https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-channels.html#strict-channel-priority for more information.
+        channel-priority: "strict"
+        # Conda configuration. Comma separated list of channels to use in order of priority. See https://docs.conda.io/projects/conda/en/latest/user-guide/configuration/ for more information.
+        channels: conda-forge,bioconda,defaults
+        # Set this option to "false" to disable running the post cleanup step of the action. Default is "true"
+        run-post: true
+
+    - name : Check setup
+      run: |
+        conda --version
+        snakemake --version
