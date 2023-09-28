@@ -26,35 +26,35 @@ jobs:
           auto-activate-base: false
 
       - name: Test conda installation
-      - run: |
+        run: |
           conda info
           conda list
           conda config --show-sources
           conda config --show
 
       - name: Test snakemake installation
-      - run: |
+        run: |
           snakemake --version
 
       - name : Download reference
-      - run: |
+        run: |
           wget https://www.ebi.ac.uk/ena/browser/api/fasta/MN908947.3
           sed 's/>ENA|MN908947|MN908947.3 Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome./>MN908947.3/g' MN908947.3 > MN908947.3.fasta
 
       - name: Test CIEVaD principal functionality
-      - run: |
+        run: |
           python cievad.py --help
       
       - name: Test haplotype simulation
-      - run: |
+        run: |
           python cievad.py hap -n 3 -r MN908947.3.fasta
 
       - name: Test NGS simulation
-      - run: |
+        run: |
           python cievad.py ngs -n 3 -f 1000 
 
       - name: Test Nanopore simulation
-      - run: |
+        run: |
           python cievad.py nano -n 3 -r 100
 
       
