@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main", "dev", "ci" ]
+  pull_request:
+    branches: [ "main" ]
+
+# designed as in: https://github.com/marketplace/actions/setup-miniconda
+jobs:
+  CI:
+    name: CI tests using linux
+    runs-on: "ubuntu-latest"
+    defaults:
+      run:
+        shell: bash -el {0}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          miniconda-version: "latest"
+          python-version: "3.11.3"
+          activate-environment: snakemake7
+          environment-file: env/conda_snakemake7.yaml
+          channels: conda-forge,bioconda,defaults
+          channel-priority: strict
+          auto-activate-base: false
+
+      - name: Test conda installation
+        run: |
+          conda info
+          conda list
+          conda config --show-sources
+          conda config --show
+
+      - name: Test snakemake installation
+        run: |
+          snakemake --version
+
+      - name : Download reference
+        run: |
+          wget https://www.ebi.ac.uk/ena/browser/api/fasta/MN908947.3
+          sed 's/>ENA|MN908947|MN908947.3 Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome./>MN908947.3/g' MN908947.3 > MN908947.3.fasta
+
+      - name: Test CIEVaD principal functionality
+        run: |
+          python cievad.py --help
+      
+      - name: Test haplotype simulation
+        run: |
+          python cievad.py hap -n 3 -r MN908947.3.fasta
+
+      - name: Test NGS simulation
+        run: |
+          python cievad.py ngs -n 3 -f 1000 
+
+      - name: Test Nanopore simulation
+        run: |
+          python cievad.py nano -n 3 -r 100
+
+      
