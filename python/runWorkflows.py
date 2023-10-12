@@ -9,13 +9,15 @@ def run_hap(args):
     
         if args.config is not None:
 
-            os.system('snakemake -p --use-conda --cores 1 --configfile ' + args.config + ' -s ' + args.snakefile)
+            #os.system('snakemake -p --use-conda --cores 1 --configfile ' + args.config + ' -s ' + args.snakefile)
+            os.system('snakemake -p --cores 1 --configfile ' + args.config + ' -s ' + args.snakefile)
 
         else:
 
             python.configGenerators.generate_hap_config(args)
 
-            os.system('snakemake -p --use-conda --cores 1 --configfile configs/snake_config_haplotype.yaml -s ' + args.snakefile)
+            #os.system('snakemake -p --use-conda --cores 1 --configfile configs/snake_config_haplotype.yaml -s ' + args.snakefile)
+            os.system('snakemake -p --cores 1 --configfile configs/snake_config_haplotype.yaml -s ' + args.snakefile)
 
 
 def run_ngs(args):
@@ -25,13 +27,15 @@ def run_ngs(args):
 
         if args.config is not None:
             
-            os.system('snakemake -p --use-conda --cores ' + str(args.threads) + '--configfile ' + args.config + ' -s ' + args.snakefile)
+            #os.system('snakemake -p --use-conda --cores ' + str(args.threads) + '--configfile ' + args.config + ' -s ' + args.snakefile)
+            os.system('snakemake -p --cores ' + str(args.threads) + '--configfile ' + args.config + ' -s ' + args.snakefile)
 
         else:
 
             python.configGenerators.generate_ngs_config(args)
 
-            os.system('snakemake -p --use-conda --cores ' + str(args.threads) + ' --configfile configs/snake_config_ngs.yaml -s ' + args.snakefile)
+            #os.system('snakemake -p --use-conda --cores ' + str(args.threads) + ' --configfile configs/snake_config_ngs.yaml -s ' + args.snakefile)
+            os.system('snakemake -p --cores ' + str(args.threads) + ' --configfile configs/snake_config_ngs.yaml -s ' + args.snakefile)
 
 
 def run_ampli(args):
@@ -41,13 +45,15 @@ def run_ampli(args):
     
         if args.config is not None:
 
-            os.system('snakemake -p --use-conda --cores 1 --configfile ' + args.config + ' -s ' + args.snakefile)
+            #os.system('snakemake -p --use-conda --cores 1 --configfile ' + args.config + ' -s ' + args.snakefile)
+            os.system('snakemake -p --cores 1 --configfile ' + args.config + ' -s ' + args.snakefile)
 
         else:
 
             python.configGenerators.generate_ampli_config(args)
 
-            os.system('snakemake -p --use-conda --cores 1 --configfile configs/snake_config_amplicon.yaml -s ' + args.snakefile)
+            #os.system('snakemake -p --use-conda --cores 1 --configfile configs/snake_config_amplicon.yaml -s ' + args.snakefile)
+            os.system('snakemake -p --cores 1 --configfile configs/snake_config_amplicon.yaml -s ' + args.snakefile)
 
 
 def run_nanopore(args):
@@ -57,13 +63,15 @@ def run_nanopore(args):
 
         if args.config is not None:
 
-            os.system('snakemake -p --use-conda --cores ' + str(args.threads) + ' --configfile ' + args.config + ' -s ' + args.snakefile)
+            #os.system('snakemake -p --use-conda --cores ' + str(args.threads) + ' --configfile ' + args.config + ' -s ' + args.snakefile)
+            os.system('snakemake -p --cores ' + str(args.threads) + ' --configfile ' + args.config + ' -s ' + args.snakefile)
 
         else:
 
             python.configGenerators.generate_nanopore_config(args)
 
-            os.system('snakemake -p --use-conda --cores ' + str(args.threads) + ' --configfile configs/snake_config_nanopore.yaml -s ' + args.snakefile)
+            #os.system('snakemake -p --use-conda --cores ' + str(args.threads) + ' --configfile configs/snake_config_nanopore.yaml -s ' + args.snakefile)
+            os.system('snakemake -p --cores ' + str(args.threads) + ' --configfile configs/snake_config_nanopore.yaml -s ' + args.snakefile)
 
 
 def run_eval(args):
@@ -73,10 +81,12 @@ def run_eval(args):
 
         if args.config is not None:
 
-            os.system('snakemake -p --use-conda --cores 1 --configfile ' + args.config + ' -s ' + args.snakefile)
+            #os.system('snakemake -p --use-conda --cores 1 --configfile ' + args.config + ' -s ' + args.snakefile)
+            os.system('snakemake -p --cores 1 --configfile ' + args.config + ' -s ' + args.snakefile)
 
         else:
 
             python.configGenerators.generate_eval_config(args)
 
-            os.system('snakemake -p --use-conda --cores 1 --configfile configs/snake_config_eval.yaml -s ' + args.snakefile)
+            #os.system('snakemake -p --use-conda --cores 1 --configfile configs/snake_config_eval.yaml -s ' + args.snakefile)
+            os.system('snakemake -p --cores 1 --configfile configs/snake_config_eval.yaml -s ' + args.snakefile)

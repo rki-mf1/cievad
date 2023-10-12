@@ -20,7 +20,7 @@ jobs:
         with:
           miniconda-version: "latest"
           activate-environment: cievad
-          environment-file: env/conda_cievad.yaml
+          environment-file: env/conda_all.yaml
           channels: conda-forge,bioconda,defaults
           channel-priority: true
           auto-activate-base: false
