@@ -35,8 +35,8 @@ rule vcf_evaluation:
     output:
         detail   = config["HEAD_DIR"] + "/data/simulated_hap{sample}/eval.picard.variant_calling_detail_metrics",
         summary  = config["HEAD_DIR"] + "/data/simulated_hap{sample}/eval.picard.variant_calling_summary_metrics"
-    conda:
-        config["HEAD_DIR"] + "/env/conda_picard.yaml"
+    #conda:
+    #    config["HEAD_DIR"] + "/env/conda_picard.yaml"
     log:
         config["HEAD_DIR"] + "/logs/picard/evaluation_hap{sample}.log"
     shell:

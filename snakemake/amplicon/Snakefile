@@ -32,8 +32,7 @@ rule amplicon_simulator:
         config["HEAD_DIR"] + "/logs/amplisim/amplisim.hap{sample}.log"
     shell:
         """
-            # STATIC COMPILED BINARY OF AMPLISIM WILL BE REPLACED BY A LIVE BUILD OR CONDA
-            ./bin/amplisim-v0_1_0-ubuntu_20_04 \
+            amplisim \
                 -s {params.seed} \
                 -o {output.amplicons} \
                 {input.reference} \
@@ -51,8 +50,8 @@ rule ngs_read_simulator:
         seed  = lambda w: (SEED * int(w.sample.lstrip('0'))) % 2147483647       # that's (2^31)-1, the upper bound
     threads:
         workflow.cores
-    conda:
-        config["HEAD_DIR"] + "/env/conda_mason.yaml"
+    #conda:
+    #    config["HEAD_DIR"] + "/env/conda_mason.yaml"
     log:
         config["HEAD_DIR"] + "/logs/mason/mason_frag_sequencing.hap{sample}.log"
     shell:

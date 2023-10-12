@@ -34,8 +34,8 @@ rule ngs_read_simulator:
         seed     = lambda w: (SEED * int(w.sample.lstrip('0'))) % 2147483647       # that's (2^31)-1, the upper bound
     threads:
         workflow.cores
-    conda:
-        config["HEAD_DIR"] + "/env/conda_mason.yaml"
+    #conda:
+    #    config["HEAD_DIR"] + "/env/conda_mason.yaml"
     log:
         config["HEAD_DIR"] + "/logs/mason/mason_simulator.hap{sample}.log"
     shell:

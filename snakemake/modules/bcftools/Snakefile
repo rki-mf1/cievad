@@ -8,8 +8,8 @@ rule bcftools_norm:
         vcf = "variants.vcf"
     output:
         vcf = "variants.norm.vcf"
-    conda:
-        "bcftools.yaml"
+    #conda:
+    #    "bcftools.yaml"
     log:
         "bcftools.norm.log"
     shell:
@@ -29,8 +29,8 @@ rule bcftools_norm_noref:
         vcf = "variants.vcf"
     output:
         vcf = "variants.norm.vcf"
-    conda:
-        "bcftools.yaml"
+    #conda:
+    #    "bcftools.yaml"
     log:
         "bcftools.norm.noref.log"
     shell:
@@ -48,8 +48,8 @@ rule bcftools_sort:
         vcf = "variants.vcf"
     output:
         vcf = "variants.sorted.vcf.gz"
-    conda:
-        "bcftools.yaml"
+    #conda:
+    #    "bcftools.yaml"
     log:
         "bcftools.sort.log"
     shell:
@@ -66,8 +66,8 @@ rule bcftools_index:
         vcf = "variants.sorted.vcf.gz"
     output:
         tbi = "variants.sorted.vcf.gz.tbi"
-    conda:
-        "bcftools.yaml"
+    #conda:
+    #    "bcftools.yaml"
     shell:
         """
             bcftools index -t {input.vcf}
