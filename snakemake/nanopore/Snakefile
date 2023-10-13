@@ -1,6 +1,21 @@
 #################### PREAMBLE
+import subprocess
 from snakemake.utils import min_version
 min_version("6.0")
+
+
+def which(command):
+    try:
+        # Run the 'which' command and capture the output
+        result = subprocess.check_output(["which", command], universal_newlines=True)
+        return result.strip()
+    except subprocess.CalledProcessError as e:
+        # If the command is not found, 'which' will return a non-zero exit status.
+        # You can handle this exception or return an appropriate value.
+        return f"Command '{command}' not found"
+    except Exception as e:
+        # Handle other exceptions as needed
+        return str(e)
 
 
 #################### CONFIG
@@ -37,13 +52,14 @@ rule nanopore_read_simulator:
         reads  = config["HEAD_DIR"] + "/data/simulated_hap{sample}/simulated.nanopore_aligned_reads.fasta",
         errors = config["HEAD_DIR"] + "/data/simulated_hap{sample}/simulated.nanopore_aligned_error_profile"
     params:
-        dna_type      = config["DNA_TYPE"],
-        model_caller  = config["MODEL_CALLER"],
-        model_prefix  = config["MODEL_PREFIX"],
-        median_length = config["MEDIAN_LENGTH"],
-        sd_length     = config["SD_LENGTH"],
-        nb_reads      = config["NB_READS"],
-        seed          = lambda w: (SEED * int(w.sample.lstrip('0'))) % 2147483647       # that's (2^31)-1, the upper bound
+        dna_type        = config["DNA_TYPE"],
+        model_caller    = config["MODEL_CALLER"],
+        model_prefix    = config["MODEL_PREFIX"],
+        median_length   = config["MEDIAN_LENGTH"],
+        sd_length       = config["SD_LENGTH"],
+        nb_reads        = config["NB_READS"],
+        seed            = lambda w: (SEED * int(w.sample.lstrip('0'))) % 2147483647,       # that's (2^31)-1, the upper bound
+        abs_script_path = which('simulator.py')
     threads:
         workflow.cores
     #conda:
@@ -52,7 +68,7 @@ rule nanopore_read_simulator:
         config["HEAD_DIR"] + "/logs/nanosim/nanosim.hap{sample}.log"
     shell:
         """
-            simulator.py genome \
+            python {params.abs_script_path} genome \
                 -dna_type {params.dna_type} \
                 -rg {input.simu_hap} \
                 -c {params.model_prefix} \
