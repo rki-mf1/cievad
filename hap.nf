@@ -9,7 +9,7 @@ include { BCFOOTLS_INDEX } from './modules/bcftools/index/main.nf'
 
 workflow{
     // Input channels
-    ch_ids      = Channel.from(1..3)
+    ch_ids      = Channel.from(1..params.n)
     ch_ref      = Channel.fromPath(params.reference)
     ch_ref_idx  = SAMTOOLS_FAIDX(ch_ref)
 
