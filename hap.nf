@@ -1,11 +1,9 @@
 // include modules - here, modules are single processes
 include { AMPLISIM } from './modules/amplisim/main.nf'
-include { BCFOOTLS_INDEX } from './modules/bcftools/index/main.nf'
-include { BCFOOTLS_NORM } from './modules/bcftools/norm/main.nf'
-include { BCFOOTLS_SORT } from './modules/bcftools/sort/main.nf'
 include { MASON_SIMULATOR } from './modules/mason/simulator/main.nf'
 include { MASON_VARIATOR } from './modules/mason/variator/main.nf'
 include { NANOSIM } from './modules/nanosim/main.nf'
+include { NORM_VCF } from './subworkflows/norm_vcf/main.nf'
 include { SAMTOOLS_FAIDX } from './modules/samtools/faidx/main.nf'
 
 
@@ -19,7 +17,8 @@ workflow{
     // Generate samples (haplotype consensus sequence + VCF)
     (ch_haplotypes,ch_vcf) = MASON_VARIATOR(ch_ids,ch_ref,ch_ref_idx)
 
-    BCFOOTLS_NORM(ch_vcf,ch_ref) | BCFOOTLS_SORT | BCFOOTLS_INDEX
+    // Normalize, sort and index the VCF files
+    NORM_VCF(ch_vcf,ch_ref)
 
     // Generate reads
     if (params.read_type == 'ngs'){
