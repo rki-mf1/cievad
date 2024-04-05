@@ -3,7 +3,7 @@ process BCFOOTLS_INDEX {
     // tag "${sample}"
 
     // Store results
-    publishDir "${params.outdir}", mode: 'copy', pattern: "*.tbi"
+    //publishDir "${params.outdir}", mode: 'copy', pattern: "*.tbi"
 
     // Engine settings
     conda 'bioconda::bcftools=1.19'

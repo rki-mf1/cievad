@@ -13,5 +13,6 @@ workflow NORM_VCF{
     BCFOOTLS_NORM(vcffiles,reference_genome) | BCFOOTLS_SORT | BCFOOTLS_INDEX
 
     emit:
-    ch_normed_sorted_vcffiles = BCFOOTLS_SORT.out
+    ch_normed_sorted_vcffiles   = BCFOOTLS_SORT.out
+    ch_index_of_vcffiles        = BCFOOTLS_INDEX.out
 }
