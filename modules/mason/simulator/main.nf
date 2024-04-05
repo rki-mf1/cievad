@@ -4,7 +4,7 @@ process MASON_SIMULATOR {
     // tag "${sample}"
 
     // Store results
-    publishDir "${params.outdir}", mode: 'copy', pattern: "*.NGSWGS.{R1,R2}.fastq"
+    publishDir "${params.outdir}", mode: 'copy', pattern: "*.{NGSWGS.R1.fastq,NGSWGS.R2.fastq,bam}"
 
     // Engine settings
     conda 'bioconda::mason=2.0.9'
@@ -14,23 +14,27 @@ process MASON_SIMULATOR {
 
     // Process I/O
     input:
-    val id
-    path "simulated_hap${id}.fasta"         // haplotype sequence, e.g. simulated_1.fasta
+    tuple val(sample), path(vcf)
+    val ref
+    val ref_idx
 
     output:
-    path "simulated_hap${id}.NGSWGS.{R1,R2}.fastq",    emit: fastq
+    path "simulated_hap${sample}.NGSWGS.{R1,R2}.fastq",     emit: fastqs
+    path "simulated_hap${sample}.bam",                      emit: bam
 
     // Job script
     script:
-    unique_seed = (params.seed * id) % 2147483647       // that's (2^31)-1, the upper bound for mason
+    unique_seed = (params.seed * sample ) % 2147483647       // that's (2^31)-1, the upper bound for mason
     """
     mason_simulator \
-        -ir simulated_hap${id}.fasta \
-        -n ${params.nb_frag} \
-        -o simulated_hap${id}.NGSWGS.R1.fastq \
-        -or simulated_hap${id}.NGSWGS.R2.fastq \
+        -ir ${ref} \
+        -iv ${vcf} \
+        -o simulated_hap${sample}.NGSWGS.R1.fastq \
+        -or simulated_hap${sample}.NGSWGS.R2.fastq \
+        -oa simulated_hap${sample}.bam \
         --seed ${unique_seed} \
         --num-threads ${task.cpus} \
+        --num-fragments ${params.nb_frag} \
         --fragment-min-size ${params.fragment_min_size} \
         --fragment-max-size ${params.fragment_max_size} \
         --fragment-mean-size ${params.fragment_mean_size} \

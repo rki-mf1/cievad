@@ -4,7 +4,7 @@ process MASON_VARIATOR {
     // tag "${sample}"
 
     // Store results
-    publishDir "${params.outdir}", mode: 'copy', pattern: "*.fasta"
+    publishDir "${params.outdir}", mode: 'copy', pattern: "simulated_hap*"
 
     // Engine settings
     conda 'bioconda::mason=2.0.9'
@@ -14,9 +14,9 @@ process MASON_VARIATOR {
 
     // Process I/O
     input:
-    each sample
-    file ref
-    file ref_idx
+    val sample
+    val ref
+    val ref_idx
 
     output:
     path "simulated_hap${sample}.fasta",    emit: fasta

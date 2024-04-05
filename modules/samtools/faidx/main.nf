@@ -13,7 +13,7 @@ process SAMTOOLS_FAIDX {
     path ref
 
     output:
-    path "${ref}.fai",  emit: refidx
+    val "${ref}.fai"
 
     // Job script
     """
