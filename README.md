@@ -13,18 +13,18 @@
 
 ## System requirements:
 
-This tool suite was developed under Linux/UNIX and is the only officially supported operating system here.
-Having any derivative of the `conda` package management system installed is the only strict system requirement.
-Having a recent `nextflow` (≥20.04.0) version installed is required to execute the workflows.
-For an installation instruction of `nextflow` via conda see [Installation](#installation).
+This tool suite was developed for Linux and is the only officially supported operating system here.
+Having any derivative of the conda package management system installed is the only strict system requirement.
+A recent version (≥20.04.0) of nextflow is required to execute the workflows, but can easily be installed via conda.
+For an installation instruction of nextflow via conda see [Installation](#installation).
 
-<details><summary>🛠️ See tested setups: </summary>
+<details><summary>🛠️ See list of tested setups: </summary>
    
 | Requirement | Tested with |
 | --- | --- |
-| 64 bits operating system | Ubuntu 20.04.5 LTS |
+| 64 bits Linux operating system | Ubuntu 20.04.5 LTS |
 | [Conda](https://docs.conda.io/en/latest/) | vers. 23.5.0, 24.1.2|
-| [Nextflow](https://nextflow.io/) | vers. 20.04.0 |
+| [Nextflow](https://nextflow.io/) | vers. 20.04.0, 23.10.1 |
 
 </details>
 
@@ -33,7 +33,7 @@ For an installation instruction of `nextflow` via conda see [Installation](#inst
 
 1. Download the repository:
 ```
-git clone https://github.com/rki-mf1/imsmp-variant-calling-benchmark.git
+git clone https://github.com/rki-mf1/cievad.git
 ```
 
 2. [Optional] Install nextflow if not yet on your system. For good practise you should use a new conda environment:
@@ -46,27 +46,25 @@ conda activate cievad
 
 ## Usage:
 
-This tool suite provides multiple workflows to generate synthetic sequencing data and evaluate sets of predicted variants (callsets).
-A full list of workflows, their respective modules in the python command line interface (CLI) and a detailed description of input and output files can be found in this [wiki](https://github.com/rki-mf1/imsmp-variant-calling-benchmark/wiki) page of the repository.
-The current list of principal functionality is:
-* Generating synthetic haplotypes from a given reference genome
-* Generating synthetic NGS reads from a given haplotype
-* Generating synthetic amplicon sequences from a given reference genome and generating synthetic NGS reads from the amplicons
-* Generating synthetic long-reads from a given haplotype
-* Evaluate compliance between sets of variants
+This tool suite provides multiple functional features to generate synthetic sequencing data, generate sets of ground truth variants (truthsets) and evaluate sets of predicted variants (callsets).
+There are two main workflows, `hap.nf` and `eval.nf`. 
+Both workflows are executed via the nextflow command line interface (CLI).
+The current list and roadmap of principal functionality is:
+* [x] Generating synthetic haplotypes from a given reference genome. This returns a haplotype sequence (FASTA) and its set of variants (VCF) with respect to the reference.
+* [x] Generating synthetic NGS reads from a given haplotype
+* [ ] Generating synthetic amplicon sequences from a given reference genome and generating synthetic reads from those amplicons
+* [ ] Generating synthetic long-reads from a given haplotype
+* [x] Evaluate compliance between sets of variants
 
-The repository provides a simple CLI for a convenient application-like user experience with the underlying Snakemake workflows.
-The CLI is started from the root directory via
+### The Command Line Interface
+The repository provides a nextflow CLI for a convenient application-like user experience.
+The minimal commands to run the workflows from the root directory are
 ```
-python cievad.py --help
+nextflow run hap.py -profile local,conda
 ```
-and each individual module provides another help page via its sub-command
+or
 ```
-python cievad.py <module> --help
-```
-
-```
-nextflow run hap.nf -profile local,conda
+nextflow run eval.nf -profile local,conda
 ```
 
 <details><summary>⚠️ Run commands from the root directory </summary>
@@ -74,6 +72,11 @@ Without further ado, please run the commands from a terminal at the top folder (
 Otherwise relative paths within the workflows might be invalid.
 </details>
 
+### Tuning the workflows via CLI parameters
+\<TODO\>
+
+### Tuning the workflows via the config file
+\<TODO\>
 
 ## Help:
 
