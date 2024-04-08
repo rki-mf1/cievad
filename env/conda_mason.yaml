@@ -1,7 +1,0 @@
-name: mason
-channels:
-  - conda-forge
-  - bioconda
-  - defaults
-dependencies:
-  - mason=2.0.9=h9ee0642_1
