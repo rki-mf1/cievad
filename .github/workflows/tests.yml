@@ -9,7 +9,7 @@ on:
 # designed as in: https://github.com/marketplace/actions/setup-miniconda
 jobs:
   CI:
-    name: CI tests using linux
+    name: CI (Linux)
     runs-on: "ubuntu-latest"
     defaults:
       run:
@@ -19,8 +19,8 @@ jobs:
       - uses: conda-incubator/setup-miniconda@v2
         with:
           miniconda-version: "latest"
-          activate-environment: cievad
-          environment-file: env/conda_all.yaml
+          activate-environment: nextflow
+          environment-file: env/conda_nxf.yml
           channels: conda-forge,bioconda,defaults
           channel-priority: true
           auto-activate-base: false
@@ -32,29 +32,16 @@ jobs:
           conda config --show-sources
           conda config --show
 
-      - name: Test snakemake installation
+      - name: Test nextflow installation
         run: |
-          snakemake --version
+          nextflow -version
 
       - name : Download reference
         run: |
           wget https://www.ebi.ac.uk/ena/browser/api/fasta/MN908947.3
           sed 's/>ENA|MN908947|MN908947.3 Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome./>MN908947.3/g' MN908947.3 > MN908947.3.fasta
-
-      - name: Test CIEVaD principal functionality
-        run: |
-          python cievad.py --help
       
       - name: Test haplotype simulation
         run: |
-          python cievad.py hap -n 3 -r MN908947.3.fasta
+          nextflow run hap.nf -profile local,conda
 
-      - name: Test NGS simulation
-        run: |
-          python cievad.py ngs -n 3 -f 1000 
-
-      - name: Test Nanopore simulation
-        run: |
-          python cievad.py nano -n 3 -r 100
-
-      
