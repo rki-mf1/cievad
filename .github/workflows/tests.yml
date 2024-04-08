@@ -37,16 +37,11 @@ jobs:
           nextflow -version
 
       - name : Download reference
-      - uses: nick-fields/retry@v3
-        with:
-          timeout_seconds: 10
-          max_attempts: 2
-          retry_on: error
-          run: |
-            wget https://www.ebi.ac.uk/ena/browser/api/fasta/MN908947.3
-            sed 's/>ENA|MN908947|MN908947.3 Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome./>MN908947.3/g' MN908947.3 > MN908947.3.fasta
-            mkdir -p reference/Sars-Cov-2/Wuhan-Hu-1/
-            mv MN908947.3.fasta reference/Sars-Cov-2/Wuhan-Hu-1/
+        run: |
+          wget https://www.ebi.ac.uk/ena/browser/api/fasta/MN908947.3
+          sed 's/>ENA|MN908947|MN908947.3 Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome./>MN908947.3/g' MN908947.3 > MN908947.3.fasta
+          mkdir -p reference/Sars-Cov-2/Wuhan-Hu-1/
+          mv MN908947.3.fasta reference/Sars-Cov-2/Wuhan-Hu-1/
       
       - name: Test haplotype simulation
         run: |
