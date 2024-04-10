@@ -8,7 +8,8 @@
 1. [System requirements](#system-requirements)
 2. [Installation](#installation)
 3. [Usage](#usage)
-4. [Help](#help)
+4. [Output](#output)
+5. [Help](#help)
 
 
 ## System requirements:
@@ -56,16 +57,22 @@ The current list and roadmap of principal functionality is:
 * [ ] Generating synthetic long-reads from a given haplotype
 * [x] Evaluate compliance between sets of variants
 
-### The Command Line Interface
-The repository provides a nextflow CLI for a convenient application-like user experience.
-The minimal commands to run the workflows from the root directory are
+### Generating haplotype data
+The minimal command to generate haplotype data is
 ```
 nextflow run hap.py -profile local,conda
 ```
-or
+
+### Evaluating variant calls
+The minimal command to evaluate the accordance between a truthset (generated data) and a callset is
 ```
-nextflow run eval.nf -profile local,conda
+nextflow run eval.nf -profile local,conda --callsets_dir <path/to/callsets>
 ```
+where `--callsets_dir` is the parameter to specify a folder containing the callset VCF files.
+Currently, a callset within this folder has to follow the naming convention `callset_<X>.vcf[.gz]` where _\<X\>_ is the integer of the corresponding truthset.
+Callsets can optionally be _gzip_ compressed.
+
+🚧 For convenience, the `eval.nf` will get an option to provide a sample sheet as an alternative input format in the future.
 
 <details><summary>⚠️ Run commands from the root directory </summary>
 Without further ado, please run the commands from a terminal at the top folder (root directory) of this repository.
@@ -76,6 +83,9 @@ Otherwise relative paths within the workflows might be invalid.
 \<TODO\>
 
 ### Tuning the workflows via the config file
+\<TODO\>
+
+## Output
 \<TODO\>
 
 ## Help:
