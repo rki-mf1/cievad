@@ -54,7 +54,7 @@ The current list and roadmap of principal functionality is:
 * [x] Generating synthetic haplotypes from a given reference genome. This returns a haplotype sequence (FASTA) and its set of variants (VCF) with respect to the reference.
 * [x] Generating synthetic NGS reads from a given haplotype
 * [ ] Generating synthetic amplicon sequences from a given reference genome and generating synthetic reads from those amplicons
-* [ ] Generating synthetic long-reads from a given haplotype
+* [x] Generating synthetic long-reads from a given haplotype
 * [x] Evaluate compliance between sets of variants
 
 ### Generating haplotype data
@@ -80,7 +80,11 @@ Otherwise relative paths within the workflows might be invalid.
 </details>
 
 ### Tuning the workflows via CLI parameters
-\<TODO\>
+Many internal command line arguments can be adjusted at the nextflow level.
+For instance, if long-reads in the fashion of Oxford Nanopore Technologies should be generated instead of NGS reads (default), use the `--read_tpye` parameter from the workflow's nextflow CLI:
+```
+nextflow run hap.nf -profile local,conda --read_type ont
+```
 
 ### Tuning the workflows via the config file
 \<TODO\>
