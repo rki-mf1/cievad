@@ -60,7 +60,7 @@ The current list and roadmap of principal functionality is:
 ### Generating haplotype data
 The minimal command to generate haplotype data is
 ```
-nextflow run hap.py -profile local,conda
+nextflow run hap.nf -profile local,conda
 ```
 
 ### Evaluating variant calls
