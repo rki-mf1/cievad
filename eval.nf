@@ -1,6 +1,7 @@
 // include modules - here, modules are single processes
 include { SAMTOOLS_FAIDX } from './modules/samtools/faidx/main.nf'
 include { HAPPY } from './modules/happy/main.nf'
+include { SOMPY_SUMMARY } from './modules/misc/main.nf'
 
 
 workflow{
@@ -30,5 +31,7 @@ workflow{
     // ------------------
     // | Main processes |
     // ------------------
-    HAPPY(ch_variantsets_map,ch_ref,ch_ref_idx)
+    (ch_csv,ch_json) = HAPPY(ch_variantsets_map,ch_ref,ch_ref_idx)
+
+    SOMPY_SUMMARY(ch_csv.collect())
 }
