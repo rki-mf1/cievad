@@ -97,10 +97,11 @@ jobs:
 
       - name: Test callset evaluation with sample_sheet
         run: |
+          cwd=$(pwd)
           echo "index,callset,truthset" > my_samples.csv
-          echo "1,aux/ci_data/callset_1.vcf.gz,results/simulated_hap1.vcf" >> my_samples.csv
-          echo "2,aux/ci_data/callset_2.vcf.gz,results/simulated_hap2.vcf" >> my_samples.csv
-          echo "3,aux/ci_data/callset_3.vcf.gz,results/simulated_hap3.vcf" >> my_samples.csv
+          echo "1,${cwd}/aux/ci_data/callset_1.vcf.gz,${cwd}/results/simulated_hap1.vcf" >> my_samples.csv
+          echo "2,${cwd}/aux/ci_data/callset_2.vcf.gz,${cwd}/results/simulated_hap2.vcf" >> my_samples.csv
+          echo "3,${cwd}/aux/ci_data/callset_3.vcf.gz,${cwd}/results/simulated_hap3.vcf" >> my_samples.csv
           
           nextflow run eval.nf -profile local,conda --sample_sheet my_samples.csv
 
