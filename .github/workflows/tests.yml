@@ -1,4 +1,4 @@
-name: CI
+name: tests
 
 on:
   push:
@@ -8,8 +8,8 @@ on:
 
 # designed as in: https://github.com/marketplace/actions/setup-miniconda
 jobs:
-  CI:
-    name: CI (Linux)
+  build:
+    name: build env
     runs-on: "ubuntu-latest"
     defaults:
       run:
@@ -36,6 +36,14 @@ jobs:
         run: |
           nextflow -version
 
+  run-hap:
+    name: Run hap.nf
+    needs: build
+    runs-on: "ubuntu-latest"
+    defaults:
+      run:
+        shell: bash -el {0}
+    steps:
       - name : Download reference
         run: |
           wget https://www.ebi.ac.uk/ena/browser/api/fasta/MN908947.3
@@ -47,6 +55,14 @@ jobs:
         run: |
           nextflow run hap.nf -profile local,conda
 
+  run-eval:
+    name: Run eval.nf
+    needs: build
+    runs-on: "ubuntu-latest"
+    defaults:
+      run:
+        shell: bash -el {0}
+    steps:
       - name: Test callset evaluation
         run: |
           nextflow run eval.nf -profile local,conda --callsets_dir aux/ci_data/
