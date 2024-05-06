@@ -69,10 +69,11 @@ The minimal command to evaluate the accordance between a truthset (generated dat
 nextflow run eval.nf -profile local,conda --callsets_dir <path/to/callsets>
 ```
 where `--callsets_dir` is the parameter to specify a folder containing the callset VCF files.
-Currently, a callset within this folder has to follow the naming convention `callset_<X>.vcf[.gz]` where _\<X\>_ is the integer of the corresponding truthset.
-Callsets can optionally be _gzip_ compressed.
-
-🚧 For convenience, the `eval.nf` will get an option to provide a sample sheet as an alternative input format in the future.
+Currently, a callset within this folder has to follow the naming convention `callset_<X>.vcf[.gz]` where _\<X\>_ is the integer of the corresponding truthset. Alternatively, one can provide a sample sheet (","-delimited) with the columns "index", "callset" and truthset", where "index" is an iteration from 1 to n (number of samples) and "callset"/"truthset" are paths to the respectively matching callset VCF files. The command is
+```
+nextflow run eval.nf -profile local,conda --sample_sheet <path/to/sample_sheet>
+```
+Note: Callsets can optionally be _gzip_ compressed.
 
 <details><summary>⚠️ Run commands from the root directory </summary>
 Without further ado, please run the commands from a terminal at the top folder (root directory) of this repository.
