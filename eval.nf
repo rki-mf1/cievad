@@ -34,7 +34,7 @@ workflow{
         ch_variantsets_map = Channel
             .fromPath(params.sample_sheet, checkIfExists: true)
             .splitCsv(header: true, sep: ",")
-            .map {row -> [row["index"] as Integer, row["callset"], row["truthset"]]}
+            .map {row -> [row["index"] as Integer, row["truthset"], row["callset"]]}
             // .view()
 
     } else {
