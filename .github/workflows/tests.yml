@@ -84,6 +84,13 @@ jobs:
           channel-priority: true
           auto-activate-base: false
 
+      - name : Download reference
+        run: |
+          wget https://www.ebi.ac.uk/ena/browser/api/fasta/MN908947.3
+          sed 's/>ENA|MN908947|MN908947.3 Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome./>MN908947.3/g' MN908947.3 > MN908947.3.fasta
+          mkdir -p reference/Sars-Cov-2/Wuhan-Hu-1/
+          mv MN908947.3.fasta reference/Sars-Cov-2/Wuhan-Hu-1/
+
       - name: Test callset evaluation
         run: |
           nextflow run eval.nf -profile local,conda --callsets_dir aux/ci_data/
