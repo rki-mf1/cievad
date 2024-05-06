@@ -9,7 +9,7 @@ on:
 # designed as in: https://github.com/marketplace/actions/setup-miniconda
 jobs:
   build:
-    name: build env
+    name: build nf env
     runs-on: "ubuntu-latest"
     defaults:
       run:
@@ -36,6 +36,7 @@ jobs:
         run: |
           nextflow -version
 
+
   run-hap:
     name: Run hap.nf
     needs: build
@@ -44,6 +45,16 @@ jobs:
       run:
         shell: bash -el {0}
     steps:
+      - uses: actions/checkout@v4
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          miniconda-version: "latest"
+          activate-environment: nextflow
+          environment-file: env/conda_nxf.yml
+          channels: conda-forge,bioconda,defaults
+          channel-priority: true
+          auto-activate-base: false
+
       - name : Download reference
         run: |
           wget https://www.ebi.ac.uk/ena/browser/api/fasta/MN908947.3
@@ -63,6 +74,16 @@ jobs:
       run:
         shell: bash -el {0}
     steps:
+      - uses: actions/checkout@v4
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          miniconda-version: "latest"
+          activate-environment: nextflow
+          environment-file: env/conda_nxf.yml
+          channels: conda-forge,bioconda,defaults
+          channel-priority: true
+          auto-activate-base: false
+
       - name: Test callset evaluation
         run: |
           nextflow run eval.nf -profile local,conda --callsets_dir aux/ci_data/
