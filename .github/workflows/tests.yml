@@ -37,8 +37,8 @@ jobs:
           nextflow -version
 
 
-  run-hap:
-    name: Run hap.nf
+  run-cievad:
+    name: Run cievad
     needs: build
     runs-on: "ubuntu-latest"
     defaults:
@@ -65,31 +65,6 @@ jobs:
       - name: Test haplotype simulation
         run: |
           nextflow run hap.nf -profile local,conda
-
-  run-eval:
-    name: Run eval.nf
-    needs: build
-    runs-on: "ubuntu-latest"
-    defaults:
-      run:
-        shell: bash -el {0}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: conda-incubator/setup-miniconda@v3
-        with:
-          miniconda-version: "latest"
-          activate-environment: nextflow
-          environment-file: env/conda_nxf.yml
-          channels: conda-forge,bioconda,defaults
-          channel-priority: true
-          auto-activate-base: false
-
-      - name : Download reference
-        run: |
-          wget https://www.ebi.ac.uk/ena/browser/api/fasta/MN908947.3
-          sed 's/>ENA|MN908947|MN908947.3 Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome./>MN908947.3/g' MN908947.3 > MN908947.3.fasta
-          mkdir -p reference/Sars-Cov-2/Wuhan-Hu-1/
-          mv MN908947.3.fasta reference/Sars-Cov-2/Wuhan-Hu-1/
 
       - name: Test callset evaluation with callset_dir
         run: |
