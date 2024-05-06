@@ -13,13 +13,13 @@ workflow{
 
     if (params.callsets_dir != "" && params.sample_sheet == "") {
 
-        ch_callsets = Channel.fromPath(params.callsets_dir + "/" + "*.{vcf,vcf.gz}")
+        ch_callsets = Channel.fromPath(params.callsets_dir + "/" + "*.{vcf,vcf.gz}", checkIfExists: true)
         ch_callsets
             .map { it -> tuple(it.toString().split('/')[-1].tokenize('_')[1].replaceFirst('.vcf', '').replaceFirst('.gz', '').toInteger(), file(it)) }
             .set {ch_callsets}
         // ch_callsets.view()
 
-        ch_truthsets = Channel.fromPath(params.outdir + "/" + "simulated_hap*.vcf")
+        ch_truthsets = Channel.fromPath(params.outdir + "/" + "simulated_hap*.vcf", checkIfExists: true)
         ch_truthsets
             .map { it -> tuple(it.toString().split('/')[-1].tokenize('_')[1].replaceFirst('hap', '').replaceFirst('.vcf', '').toInteger(), file(it)) }
             .set {ch_truthsets}
@@ -34,7 +34,7 @@ workflow{
         ch_variantsets_map = Channel
             .fromPath(params.sample_sheet, checkIfExists: true)
             .splitCsv(header: true, sep: ",")
-            .map {row -> [row["index"] as Integer, row["callset"], row["truthset"]]}
+            .map {row -> [row["index"] as Integer, row["truthset"], row["callset"]]}
             // .view()
 
     } else {
