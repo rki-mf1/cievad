@@ -27,8 +27,7 @@ class Helper {
         """
     }
 
-    def helpHap(version,nb_frag,fragment_min_size,fragment_max_size,fragment_mean_size,fragment_size_std_dev,
-                illumina_read_length, dna_type, model_prefix, model_caller, median_length, sd_length, nb_reads){
+    def helpHap(version,params){
         String c_green = "\033[0;32m";
         String c_reset = "\033[0m";
         String c_yellow = "\033[0;33m";
@@ -58,21 +57,21 @@ class Helper {
 
         ${c_yellow}Next Generation Sequencing (WGS) Parameter, required if [--read_type ngs] supplied ${c_reset}
 
-        ${c_green} --nb_frag ${c_reset} number of fragments per sample [default: ${nb_frag}]
-        ${c_green} --fragment_min_size ${c_reset} minimum size of fragments [default: ${fragment_min_size}]
-        ${c_green} --fragment_max_size ${c_reset} maximum size of fragments [default: ${fragment_max_size}]
-        ${c_green} --fragment_mean_size ${c_reset} mean size of fragments [default: ${fragment_mean_size}]
-        ${c_green} --fragment_size_std_dev ${c_reset} standard deviation for fragment size [default: ${fragment_size_std_dev}]
-        ${c_green} --illumina_read_length ${c_reset} read length of synthetic illumina reads [default: ${illumina_read_length}]
+        ${c_green} --nb_frag ${c_reset} number of fragments per sample [default: ${params.nb_frag}]
+        ${c_green} --fragment_min_size ${c_reset} minimum size of fragments [default: ${params.fragment_min_size}]
+        ${c_green} --fragment_max_size ${c_reset} maximum size of fragments [default: ${params.fragment_max_size}]
+        ${c_green} --fragment_mean_size ${c_reset} mean size of fragments [default: ${params.fragment_mean_size}]
+        ${c_green} --fragment_size_std_dev ${c_reset} standard deviation for fragment size [default: ${params.fragment_size_std_dev}]
+        ${c_green} --illumina_read_length ${c_reset} read length of synthetic illumina reads [default: ${params.illumina_read_length}]
 
         ${c_yellow}Nanopore Sequencing (WGS) Parameter, required if [--read_type ont] supplied ${c_reset}
 
-        ${c_green} --dna_type ${c_reset} used DNA type [default: ${dna_type}]
-        ${c_green} --model_prefix ${c_reset} path and prefix of the used model (e.g.: ${model_prefix})
-        ${c_green} --model_caller ${c_reset} algorithm to conduct the basecalling [default: ${model_caller}]
-        ${c_green} --median_length ${c_reset} median length of the resulting synthetic reads [default: ${median_length}]
-        ${c_green} --sd_length ${c_reset} standard deviation length of the resulting synthetic reads [default: ${sd_length}]
-        ${c_green} --nb_reads ${c_reset} number of synthetic reads [default: ${nb_reads}]
+        ${c_green} --dna_type ${c_reset} used DNA type [default: ${params.dna_type}]
+        ${c_green} --model_prefix ${c_reset} path and prefix of the used model (e.g.: ${params.model_prefix})
+        ${c_green} --model_caller ${c_reset} algorithm to conduct the basecalling [default: ${params.model_caller}]
+        ${c_green} --median_length ${c_reset} median length of the resulting synthetic reads [default: ${params.median_length}]
+        ${c_green} --sd_length ${c_reset} standard deviation length of the resulting synthetic reads [default: ${params.sd_length}]
+        ${c_green} --nb_reads ${c_reset} number of synthetic reads [default: ${params.nb_reads}]
         """
     }
 }
