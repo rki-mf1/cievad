@@ -1,3 +1,11 @@
+//load in help function
+File data_class_file = new File("./src/data_class.groovy");
+Class groovyClass = new GroovyClassLoader(getClass().getClassLoader()).parseClass(data_class_file);
+GroovyObject data_class = (GroovyObject) groovyClass.newInstance();
+
+if (params.help) { exit 0, data_class.helpHap(workflow.manifest.version, params.nb_frag, params.fragment_min_size, params.fragment_max_size, params.fragment_mean_size,
+                   params.fragment_size_std_dev, params.illumina_read_length, params.dna_type, params.model_prefix, params.model_caller, params.median_length, params.sd_length, params.nb_reads) }
+
 // include modules - here, modules are single processes
 //include { AMPLISIM } from './modules/amplisim/main.nf'
 include { MASON_SIMULATOR } from './modules/mason/simulator/main.nf'

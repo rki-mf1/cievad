@@ -1,3 +1,10 @@
+//load in help function
+File data_class_file = new File("./src/data_class.groovy");
+Class groovyClass = new GroovyClassLoader(getClass().getClassLoader()).parseClass(data_class_file);
+GroovyObject data_class = (GroovyObject) groovyClass.newInstance();
+
+if (params.help) { exit 0, data_class.helpEval(workflow.manifest.version) }
+
 // include modules - here, modules are single processes
 include { SAMTOOLS_FAIDX } from './modules/samtools/faidx/main.nf'
 include { HAPPY } from './modules/happy/main.nf'
@@ -50,3 +57,4 @@ workflow{
 
     SOMPY_SUMMARY(ch_csv.collect())
 }
+
