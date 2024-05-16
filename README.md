@@ -70,9 +70,12 @@ nextflow run eval.nf -profile local,conda --callsets_dir <path/to/callsets>
 ```
 where `--callsets_dir` is the parameter to specify a folder containing the callset VCF files.
 Currently, a callset within this folder has to follow the naming convention `callset_<X>.vcf[.gz]` where _\<X\>_ is the integer of the corresponding truthset.
+Alternatively, one can provide a sample sheet of comma separated values (CSV file) with the columns "index", "truthset" and callset", where "index" is an integer from 1 to n (number of samples) and "callset"/"truthset" are paths to the pairwise matching VCF files.
 Callsets can optionally be _gzip_ compressed.
-
-🚧 For convenience, the `eval.nf` will get an option to provide a sample sheet as an alternative input format in the future.
+The command for the sample sheet input is
+```
+nextflow run eval.nf -profile local,conda --sample_sheet <path/to/sample_sheet>
+```
 
 <details><summary>⚠️ Run commands from the root directory </summary>
 Without further ado, please run the commands from a terminal at the top folder (root directory) of this repository.

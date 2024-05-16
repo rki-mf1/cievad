@@ -1,3 +1,10 @@
+//load in help function
+File helppages_class_file = new File("./src/Helppages.groovy");
+Class HelppagesClass = new GroovyClassLoader(getClass().getClassLoader()).parseClass(helppages_class_file);
+GroovyObject help = (GroovyObject) HelppagesClass.newInstance();
+
+if (params.help) { exit 0, help.helpHap(workflow.manifest.version, params) }
+
 // include modules - here, modules are single processes
 //include { AMPLISIM } from './modules/amplisim/main.nf'
 include { MASON_SIMULATOR } from './modules/mason/simulator/main.nf'
