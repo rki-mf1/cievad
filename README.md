@@ -60,7 +60,7 @@ The minimal command to generate haplotype data is
 nextflow run hap.nf -profile local,conda
 ```
 
-This generates
+This generates the following data within the `<project_root>/results/` directory:
 - a haplotype (FASTA), which is a copy of the provided reference sequence but deviates by a set of synthetic genomic variants
 - the variant set (VCF) of synthetic genomic variants in the haplotype
 - a set of reads (FASTQ) representing a sequencing experiment from the haplotype
@@ -79,9 +79,9 @@ The command for the sample sheet input is
 nextflow run eval.nf -profile local,conda --sample_sheet <path/to/sample_sheet>
 ```
 
-This results in
-- a report about accordance between the synthetic variant set and a given corresponding callset
-- a report with average statistis across all tested individuals
+This generates the following data within the `<project_root>/results/` directory:
+- a report (CSV, JSON) about accordance between the synthetic variant set and a given corresponding callset
+- a report (CSV) with statistis across all tested individuals
 
 ### Tuning the workflow parameters
 Many internal settings can be adjusted at the nextflow level.
