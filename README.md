@@ -8,8 +8,7 @@
 1. [System requirements](#system-requirements)
 2. [Installation](#installation)
 3. [Usage](#usage)
-4. [Output](#output)
-5. [Help](#help)
+4. [Help](#help)
 
 
 ## System requirements:
@@ -19,7 +18,7 @@ Having any derivative of the conda package management system installed is the on
 A recent version (≥20.04.0) of nextflow is required to execute the workflows, but can easily be installed via conda.
 For an installation instruction of nextflow via conda see [Installation](#installation).
 
-<details><summary>🛠️ See list of tested setups: </summary>
+<details><summary>🖥️ See list of tested setups: </summary>
    
 | Requirement | Tested with |
 | --- | --- |
@@ -50,18 +49,21 @@ conda activate cievad
 This tool suite provides multiple functional features to generate synthetic sequencing data, generate sets of ground truth variants (truthsets) and evaluate sets of predicted variants (callsets).
 There are two main workflows, `hap.nf` and `eval.nf`. 
 Both workflows are executed via the nextflow command line interface (CLI).
-The current list and roadmap of principal functionality is:
-* [x] Generating synthetic haplotypes from a given reference genome. This returns a haplotype sequence (FASTA) and its set of variants (VCF) with respect to the reference.
-* [x] Generating synthetic NGS reads from a given haplotype
-* [ ] Generating synthetic amplicon sequences from a given reference genome and generating synthetic reads from those amplicons
-* [x] Generating synthetic long-reads from a given haplotype
-* [x] Evaluate compliance between sets of variants
+<details><summary>⚠️ Run commands from the root directory: </summary>
+Without further ado, please run the commands from a terminal at the top folder (root directory) of this repository.
+Otherwise relative paths within the workflows might be invalid.
+</details>
 
 ### Generating haplotype data
 The minimal command to generate haplotype data is
 ```
 nextflow run hap.nf -profile local,conda
 ```
+
+This generates
+- a haplotype (FASTA), which is a copy of the provided reference sequence but deviates by a set of synthetic genomic variants
+- the variant set (VCF) of synthetic genomic variants in the haplotype
+- a set of reads (FASTQ) representing a sequencing experiment from the haplotype
 
 ### Evaluating variant calls
 The minimal command to evaluate the accordance between a truthset (generated data) and a callset is
@@ -77,23 +79,16 @@ The command for the sample sheet input is
 nextflow run eval.nf -profile local,conda --sample_sheet <path/to/sample_sheet>
 ```
 
-<details><summary>⚠️ Run commands from the root directory </summary>
-Without further ado, please run the commands from a terminal at the top folder (root directory) of this repository.
-Otherwise relative paths within the workflows might be invalid.
-</details>
+This results in
+- a report about accordance between the synthetic variant set and a given corresponding callset
+- a report with average statistis across all tested individuals
 
-### Tuning the workflows via CLI parameters
-Many internal command line arguments can be adjusted at the nextflow level.
-For instance, if long-reads in the fashion of Oxford Nanopore Technologies should be generated instead of NGS reads (default), use the `--read_tpye` parameter from the workflow's nextflow CLI:
-```
-nextflow run hap.nf -profile local,conda --read_type ont
-```
-
-### Tuning the workflows via the config file
-\<TODO\>
-
-## Output
-\<TODO\>
+### Tuning the workflow parameters
+Many internal settings can be adjusted at the nextflow level.
+The parameters to adjust the workflows are listed on their respective help pages.
+To inspect the help pages type `--help` after the script name.
+Parameters can be adjusted via the CLI or within the _nextflow.config_ file.
+Mind that parameters provided by the CLI will overwrite parameters set in config.
 
 ## Help:
 
