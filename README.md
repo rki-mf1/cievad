@@ -1,5 +1,8 @@
 [![run with conda](https://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/en/latest/)
 [![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A520.04.0-23aa62.svg)](https://www.nextflow.io/)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/rki-mf1/cievad/test_basics.yml?logo=github&label=tests)
+![GitHub Release](https://img.shields.io/github/v/release/rki-mf1/cievad?logo=github)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/y/rki-mf1/cievad)
 
 # CIEVaD
 <ins>C</ins>ontinuous <ins>I</ins>ntegration and <ins>E</ins>valuation for <ins>Va</ins>riant <ins>D</ins>etection. This repository provides a tool suite for simple, streamlined and rapid creation and evaluation of genomic variant callsets. It is primarily designed for continuous integration of variant detection software and a plain containment check between sets of variants. The tools suite utilizes the _conda_ package management system and _nextflow_ workflow language.
