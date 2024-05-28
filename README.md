@@ -92,5 +92,5 @@ Mind that parameters provided by the CLI will overwrite parameters set in config
 
 ## Help:
 
-Visit the project [wiki](https://github.com/rki-mf1/imsmp-variant-calling-benchmark/wiki) for more information, help and FAQs. <br>
-Please file issues, bug reports and questions to the [issues](https://github.com/rki-mf1/imsmp-variant-calling-benchmark/issues) section.
+Visit the project [wiki](https://github.com/rki-mf1/cievad/wiki) for more information, help and FAQs. <br>
+Please file issues, bug reports and questions to the [issues](https://github.com/rki-mf1/cievad/issues) section.
