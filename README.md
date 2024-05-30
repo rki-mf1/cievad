@@ -2,7 +2,6 @@
 [![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A520.04.0-23aa62.svg)](https://www.nextflow.io/)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/rki-mf1/cievad/test_basics.yml?logo=github&label=tests)
 ![GitHub Release](https://img.shields.io/github/v/release/rki-mf1/cievad?logo=github)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/y/rki-mf1/cievad)
 
 # CIEVaD
 <ins>C</ins>ontinuous <ins>I</ins>ntegration and <ins>E</ins>valuation for <ins>Va</ins>riant <ins>D</ins>etection. This repository provides a tool suite for simple, streamlined and rapid creation and evaluation of genomic variant callsets. It is primarily designed for continuous integration of variant detection software and a plain containment check between sets of variants. The tools suite utilizes the _conda_ package management system and _nextflow_ workflow language.
@@ -97,3 +96,8 @@ Mind that parameters provided by the CLI will overwrite parameters set in config
 
 Visit the project [wiki](https://github.com/rki-mf1/cievad/wiki) for more information, help and FAQs. <br>
 Please file issues, bug reports and questions to the [issues](https://github.com/rki-mf1/cievad/issues) section.
+
+### Software maintenance team
+![GitHub commit activity](https://img.shields.io/github/commit-activity/y/rki-mf1/cievad)
+- TK ![Static Badge](https://img.shields.io/badge/Krannich479%20-%20follow?style=social&logo=github&label=Follow&link=https%3A%2F%2Fgithub.com%2FKrannich479)
+- DT ![Static Badge](https://img.shields.io/badge/DimitriTernovoj%20-%20follow?style=social&logo=github&label=Follow&link=https%3A%2F%2Fgithub.com%2FDimitriTernovoj)
