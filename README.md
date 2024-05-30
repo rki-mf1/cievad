@@ -99,5 +99,5 @@ Please file issues, bug reports and questions to the [issues](https://github.com
 
 ### Software maintenance team
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/y/rki-mf1/cievad)
-- TK ![Static Badge](https://img.shields.io/badge/Krannich479%20-%20follow?style=social&logo=github&label=Follow&link=https%3A%2F%2Fgithub.com%2FKrannich479)
-- DT ![Static Badge](https://img.shields.io/badge/DimitriTernovoj%20-%20follow?style=social&logo=github&label=Follow&link=https%3A%2F%2Fgithub.com%2FDimitriTernovoj)
+- TK [![Static Badge](https://img.shields.io/badge/Krannich479%20-%20follow?style=social&logo=github&label=Follow)](https://github.com/Krannich479)
+- DT [![Static Badge](https://img.shields.io/badge/DimitriTernovoj%20-%20follow?style=social&logo=github&label=Follow)](https://github.com/DimitriTernovoj)
