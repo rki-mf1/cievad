@@ -2,6 +2,8 @@ bin/*
 !bin/mason_simulator
 !bin/SURVIVOR
 !bin/amplisim-v0_1_0-ubuntu_20_04
+!bin/pbsim
+
 
 data/*
 data-ci/*
@@ -10,9 +12,11 @@ logs/*
 
 .snakemake/
 
-reference/
-
 configs/
+
+databases/
+
+singularity_images/
 
 results/
 
