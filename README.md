@@ -97,8 +97,3 @@ Mind that parameters provided by the CLI will overwrite parameters set in config
 
 Visit the project [wiki](https://github.com/rki-mf1/cievad/wiki) for more information, help and FAQs. <br>
 Please file issues, bug reports and questions to the [issues](https://github.com/rki-mf1/cievad/issues) section.
-
-### Software maintenance team
-
-- TK [![Static Badge](https://img.shields.io/badge/Krannich479%20-%20follow?style=social&logo=github&label=Follow)](https://github.com/Krannich479)
-- DT [![Static Badge](https://img.shields.io/badge/DimitriTernovoj%20-%20follow?style=social&logo=github&label=Follow)](https://github.com/DimitriTernovoj)
