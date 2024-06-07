@@ -7,7 +7,7 @@ process NANOSIM {
     publishDir "${params.outdir}", mode: 'copy', pattern: "simulated_hap${sample}.ONTWGS{_aligned_error_profile,_aligned_reads.fastq}"
 
     // Engine settings
-    conda 'bioconda::nanosim=3.1.0'
+    conda 'bioconda::nanosim=3.1.0 conda-forge::numpy=1.17.2 conda-forge::scikit-learn=0.22.1'
 
     // Resources
     cpus 2
