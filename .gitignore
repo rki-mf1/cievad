@@ -10,9 +10,11 @@ logs/*
 
 .snakemake/
 
-reference/
-
 configs/
+
+databases/
+
+singularity_images/
 
 results/
 
