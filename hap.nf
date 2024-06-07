@@ -9,7 +9,8 @@ if (params.help) { exit 0, help.helpHap(workflow.manifest.version, params) }
 //include { AMPLISIM } from './modules/amplisim/main.nf'
 include { MASON_SIMULATOR } from './modules/mason/simulator/main.nf'
 include { MASON_VARIATOR } from './modules/mason/variator/main.nf'
-include { NANOSIM } from './modules/nanosim/main.nf'
+//include { NANOSIM } from './modules/nanosim/main.nf'
+include { PBSIM } from './modules/pbsim/main.nf'
 //include { NORM_VCF } from './subworkflows/norm_vcf/main.nf'
 include { SAMTOOLS_FAIDX } from './modules/samtools/faidx/main.nf'
 include { MINIMAP2SAMTOOLS } from './modules/minimap/main.nf'
@@ -46,7 +47,7 @@ workflow{
             .map { it -> tuple(it.toString().split('/')[-1].tokenize('_')[1].replaceFirst('hap', '').replaceFirst('\\.fasta', '').toInteger(), file(it)) }
             .set {ch_sample_haplos_map}
 
-        (ch_profiles,ch_fastqs) = NANOSIM(ch_sample_haplos_map)
+        ch_fastqs = PBSIM(ch_sample_haplos_map)
 
         MINIMAP2SAMTOOLS(ch_fastqs,ch_ref,ch_ref_idx)
     }
