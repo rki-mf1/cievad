@@ -69,9 +69,9 @@ for line in sys.stdin:
 # |  OUTPUT    |
 # ++++++++++++++
 assert(header.rstrip().split(",")[9] == "recall")
-recall_field_idx = 9
+recall_field_idx = 9 - 2 # because in the line buffer we chopped 2 indices to only have numeric fields
 assert(header.rstrip().split(",")[13] == "precision")
-precision_field_idx = 13
+precision_field_idx = 13 - 2 # because in the line buffer we chopped 2 indices to only have numeric fields
 print(header4outputfile(header))
 print("0,indels," + ','.join(str(x) for x in indel_lines_avg) + ',' + str(f1_score(indel_lines_avg[recall_field_idx], indel_lines_avg[precision_field_idx])) + ",-,-")
 print("1,SNVs,"   + ','.join(str(x) for x in snv_lines_avg)   + ',' + str(f1_score(snv_lines_avg[recall_field_idx], snv_lines_avg[precision_field_idx])) + ",-,-")
