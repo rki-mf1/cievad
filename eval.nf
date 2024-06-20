@@ -5,11 +5,15 @@ GroovyObject help = (GroovyObject) HelppagesClass.newInstance();
 
 if (params.help) { exit 0, help.helpEval(workflow.manifest.version, params) }
 
+
+if (params.callsets_dir == "" && params.sample_sheet == "" || params.callsets_dir != "" && params.sample_sheet != ""){
+    exit 1, "Data input incorrect - please supply only one of the following parameters: sample_sheet, callsets_dir\n"
+}
+
 // include modules - here, modules are single processes
 include { SAMTOOLS_FAIDX } from './modules/samtools/faidx/main.nf'
 include { HAPPY } from './modules/happy/main.nf'
 include { SOMPY_SUMMARY } from './modules/misc/main.nf'
-
 
 workflow{
     // ------------------
@@ -18,7 +22,7 @@ workflow{
     ch_ref      = Channel.value("$baseDir/" + params.reference)
     ch_ref_idx  = SAMTOOLS_FAIDX(ch_ref)
 
-    if (params.callsets_dir != "" && params.sample_sheet == "") {
+    if (params.callsets_dir != "") {
 
         ch_callsets = Channel.fromPath(params.callsets_dir + "/" + "*.{vcf,vcf.gz}", checkIfExists: true)
         ch_callsets
@@ -36,17 +40,13 @@ workflow{
             .set {ch_variantsets_map}
         // ch_variantsets_map.view()
 
-    } else if (params.sample_sheet != "" && params.callsets_dir == "") { 
+    } else { 
 
         ch_variantsets_map = Channel
             .fromPath(params.sample_sheet, checkIfExists: true)
             .splitCsv(header: true, sep: ",")
             .map {row -> [row["index"] as Integer, row["truthset"], row["callset"]]}
             // .view()
-
-    } else {
-
-        exit 1, "ERROR: Data input incorrect - please supply only one of the following parameters: sample_sheet, callsets_dir\n"
 
     }
 
