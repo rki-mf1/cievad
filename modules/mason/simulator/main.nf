@@ -20,7 +20,7 @@ process MASON_SIMULATOR {
 
     output:
     path "simulated_hap${sample}.NGSWGS.{R1,R2}.fastq",     emit: fastqs
-    path "simulated_hap${sample}.bam",                      emit: bam
+    path "simulated_hap${sample}.NGSWGS.bam",               emit: bam
 
     // Job script
     script:
@@ -31,7 +31,7 @@ process MASON_SIMULATOR {
         -iv ${vcf} \
         -o simulated_hap${sample}.NGSWGS.R1.fastq \
         -or simulated_hap${sample}.NGSWGS.R2.fastq \
-        -oa simulated_hap${sample}.bam \
+        -oa simulated_hap${sample}.NGSWGS.bam \
         --seed ${unique_seed} \
         --num-threads ${task.cpus} \
         --num-fragments ${params.nb_frag} \
