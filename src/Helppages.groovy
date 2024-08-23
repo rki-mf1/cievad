@@ -67,6 +67,7 @@ class Helper {
         ${c_green} --fragment_mean_size ${c_reset} mean size of fragments [default: ${params.fragment_mean_size}]
         ${c_green} --fragment_size_std_dev ${c_reset} standard deviation for fragment size [default: ${params.fragment_size_std_dev}]
         ${c_green} --illumina_read_length ${c_reset} read length of synthetic illumina reads [default: ${params.illumina_read_length}]
+        ${c_green} --mason_additional_args ${c_reset} additional arguments for mason_simulator [default: ${params.mason_additional_args}]
 
         ${c_yellow}Nanopore Sequencing parameter, optional if [--read_type ont] is supplied ${c_reset}
 
