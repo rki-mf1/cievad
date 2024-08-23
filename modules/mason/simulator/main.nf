@@ -39,7 +39,8 @@ process MASON_SIMULATOR {
         --fragment-max-size ${params.fragment_max_size} \
         --fragment-mean-size ${params.fragment_mean_size} \
         --fragment-size-std-dev ${params.fragment_size_std_dev} \
-        --illumina-read-length ${params.illumina_read_length}
+        --illumina-read-length ${params.illumina_read_length} \
+        ${params.mason_additional_args}
     """
 
 
