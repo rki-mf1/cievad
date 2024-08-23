@@ -6,6 +6,8 @@ process PBSIM {
     // Store results
     publishDir "${params.outdir}", mode: 'copy', pattern: "simulated_hap${sample}.ONTWGS*.fastq"
 
+    conda "bioconda::pbsim3=3.0.4"
+
     // Process I/O
     input:
     tuple val(sample), path(fasta)
@@ -17,7 +19,7 @@ process PBSIM {
     script:
     unique_seed = (params.seed * sample) % 2147483647       // that's (2^31)-1, the upper bound for mason
     """
-    ${projectDir}/${params.pbsim_bin} \
+    pbsim \
         --seed         ${unique_seed} \
         --strategy     ${params.pbsim_strategy} \
         --prefix       simulated_hap${sample}.ONTWGS \
