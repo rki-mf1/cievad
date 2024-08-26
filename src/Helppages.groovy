@@ -58,6 +58,7 @@ class Helper {
         ${c_green} --n ${c_reset} number of synthetic samples to be generated [default: ${params.n}]
         ${c_green} --read_type ${c_reset} type of synthetic reads to be generated (options: ngs, ont) [default: ${params.read_type}]
         ${c_green} --outdir ${c_reset} directory to save results in [default: ${params.outdir}]
+        ${c_green} --report_nstretches ${c_reset} flag to activate reporting of N stretches in the reference genome [default: ${params.report_nstretches}]
 
         ${c_yellow}Next Generation Sequencing parameter, optional if [--read_type ngs] is supplied ${c_reset}
 
