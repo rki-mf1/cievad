@@ -11,9 +11,9 @@ if (params.callsets_dir == "" && params.sample_sheet == "" || params.callsets_di
 }
 
 // include modules - here, modules are single processes
-include { SAMTOOLS_FAIDX } from './modules/samtools/faidx/main.nf'
-include { HAPPY } from './modules/happy/main.nf'
-include { SOMPY_SUMMARY } from './modules/misc/main.nf'
+include { SAMTOOLS_FAIDX }  from './modules/samtools/faidx/main.nf'
+include { HAPPY }           from './modules/happy/main.nf'
+include { SOMPY_SUMMARY }   from './modules/reporting/main.nf'
 
 workflow{
     // ------------------
