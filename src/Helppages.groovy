@@ -58,6 +58,7 @@ class Helper {
         ${c_green} --n ${c_reset} number of synthetic samples to be generated [default: ${params.n}]
         ${c_green} --read_type ${c_reset} type of synthetic reads to be generated (options: ngs, ont) [default: ${params.read_type}]
         ${c_green} --outdir ${c_reset} directory to save results in [default: ${params.outdir}]
+        ${c_green} --report_nstretches ${c_reset} flag to activate reporting of N stretches in the reference genome [default: ${params.report_nstretches}]
 
         ${c_yellow}Next Generation Sequencing parameter, optional if [--read_type ngs] is supplied ${c_reset}
 
@@ -67,6 +68,7 @@ class Helper {
         ${c_green} --fragment_mean_size ${c_reset} mean size of fragments [default: ${params.fragment_mean_size}]
         ${c_green} --fragment_size_std_dev ${c_reset} standard deviation for fragment size [default: ${params.fragment_size_std_dev}]
         ${c_green} --illumina_read_length ${c_reset} read length of synthetic illumina reads [default: ${params.illumina_read_length}]
+        ${c_green} --mason_additional_args ${c_reset} additional arguments for mason_simulator [default: ${params.mason_additional_args}]
 
         ${c_yellow}Nanopore Sequencing parameter, optional if [--read_type ont] is supplied ${c_reset}
 

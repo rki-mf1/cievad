@@ -12,6 +12,7 @@
 2. [Installation](#installation)
 3. [Usage](#usage)
 4. [Help](#help)
+5. [Citation](#citation)
 
 
 ## System requirements:
@@ -87,13 +88,35 @@ This generates the following data within the `<project_root>/results/` directory
 - a report (CSV) with statistis across all tested individuals
 
 ### Tuning the workflow parameters
-Many internal settings can be adjusted at the nextflow level.
+CIEVaD enables access and finetuning to a vast majority of parameters of the internal software tools.
 The parameters to adjust the workflows are listed on their respective help pages.
-To inspect the help pages type `--help` after the script name.
-Parameters can be adjusted via the CLI or within the _nextflow.config_ file.
+To inspect the help pages type `--help` after the script name, e.g. `nextflow run hap.nf --help` for the hap.nf workflow.
+Parameters can be adjusted via the CLI or directly within the _nextflow.config_ file.
 Mind that parameters provided by the CLI will overwrite parameters set in config.
+More information about tuning crucial parameters, e.g. [read quality](https://github.com/rki-mf1/cievad/wiki/Parameterization-of-the-workflow) and [genome coverage](https://github.com/rki-mf1/cievad/wiki/FAQ---Troubleshooting), can be found in the Wiki.
 
 ## Help:
 
-Visit the project [wiki](https://github.com/rki-mf1/cievad/wiki) for more information, help and FAQs. <br>
+Visit the project [wiki](https://github.com/rki-mf1/cievad/wiki) for more detail information on parameters, help and FAQs. <br>
 Please file issues, bug reports and questions to the [issues](https://github.com/rki-mf1/cievad/issues) section.
+
+## Citation:
+
+We have a [preprint](https://www.biorxiv.org/content/10.1101/2024.06.21.600013v1) available for CIEVaD.
+For the time being, if you use CIEVaD please cite
+```
+@article {Krannich2024.06.21.600013,
+	author = {Krannich, Thomas and Ternovoj, Dimitri and Paraskevopoulou, Sofia and Fuchs, Stephan},
+	title = {CIEVaD: a lightweight workflow collection for rapid and on demand deployment of end-to-end testing of genomic variant detection},
+	elocation-id = {2024.06.21.600013},
+	year = {2024},
+	doi = {10.1101/2024.06.21.600013},
+	publisher = {Cold Spring Harbor Laboratory},
+	abstract = {The identification of genomic variants has become a routine task in the thriving age of genome sequencing. Particularly small genomic variants of single or few nucleotides are routinely investigated for their impact on an organism{\textquoteright}s phenotype. Hence, precise and robust detection of the variants{\textquoteright} exact genomic location and change in nucleotide composition is vital in many biological applications. Although a plethora of methods exist for the many key steps of variant detection, thoroughly testing the detection process and evaluating its results is still a cumbersome procedure. In this work, we present a collection of trivial to apply and highly modifiable workflows to facilitate the generation of synthetic test data as well as to evaluate the accordance of a user-provided set of variants with the test data. Availability: The workflows are implemented in Nextflow and are freely available and open-source at https://github.com/rki-mf1/cievad under the GPL-3.0 license.Competing Interest StatementThe authors have declared no competing interest.},
+	URL = {https://www.biorxiv.org/content/early/2024/06/21/2024.06.21.600013},
+	eprint = {https://www.biorxiv.org/content/early/2024/06/21/2024.06.21.600013.full.pdf},
+	journal = {bioRxiv}
+}
+```
+
+
