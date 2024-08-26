@@ -88,15 +88,16 @@ This generates the following data within the `<project_root>/results/` directory
 - a report (CSV) with statistis across all tested individuals
 
 ### Tuning the workflow parameters
-Many internal settings can be adjusted at the nextflow level.
+CIEVaD enables access and finetuning to a vast majority of parameters of the internal software tools.
 The parameters to adjust the workflows are listed on their respective help pages.
-To inspect the help pages type `--help` after the script name.
-Parameters can be adjusted via the CLI or within the _nextflow.config_ file.
+To inspect the help pages type `--help` after the script name, e.g. `nextflow run hap.nf --help` for the hap.nf workflow.
+Parameters can be adjusted via the CLI or directly within the _nextflow.config_ file.
 Mind that parameters provided by the CLI will overwrite parameters set in config.
+More information about tuning crucial parameters, e.g. [read quality](https://github.com/rki-mf1/cievad/wiki/Parameterization-of-the-workflow) and [genome coverage](https://github.com/rki-mf1/cievad/wiki/FAQ---Troubleshooting), can be found in the Wiki.
 
 ## Help:
 
-Visit the project [wiki](https://github.com/rki-mf1/cievad/wiki) for more information, help and FAQs. <br>
+Visit the project [wiki](https://github.com/rki-mf1/cievad/wiki) for more detail information on parameters, help and FAQs. <br>
 Please file issues, bug reports and questions to the [issues](https://github.com/rki-mf1/cievad/issues) section.
 
 ## Citation:
