@@ -102,20 +102,18 @@ Please file issues, bug reports and questions to the [issues](https://github.com
 
 ## Citation:
 
-We have a [preprint](https://www.biorxiv.org/content/10.1101/2024.06.21.600013v1) available for CIEVaD.
-For the time being, if you use CIEVaD please cite
+We have a [manuscript](https://www.mdpi.com/1999-4915/16/9/1444) available for CIEVaD.
+If you use CIEVaD please cite
 ```
-@article {Krannich2024.06.21.600013,
-	author = {Krannich, Thomas and Ternovoj, Dimitri and Paraskevopoulou, Sofia and Fuchs, Stephan},
-	title = {CIEVaD: a lightweight workflow collection for rapid and on demand deployment of end-to-end testing of genomic variant detection},
-	elocation-id = {2024.06.21.600013},
-	year = {2024},
-	doi = {10.1101/2024.06.21.600013},
-	publisher = {Cold Spring Harbor Laboratory},
-	abstract = {The identification of genomic variants has become a routine task in the thriving age of genome sequencing. Particularly small genomic variants of single or few nucleotides are routinely investigated for their impact on an organism{\textquoteright}s phenotype. Hence, precise and robust detection of the variants{\textquoteright} exact genomic location and change in nucleotide composition is vital in many biological applications. Although a plethora of methods exist for the many key steps of variant detection, thoroughly testing the detection process and evaluating its results is still a cumbersome procedure. In this work, we present a collection of trivial to apply and highly modifiable workflows to facilitate the generation of synthetic test data as well as to evaluate the accordance of a user-provided set of variants with the test data. Availability: The workflows are implemented in Nextflow and are freely available and open-source at https://github.com/rki-mf1/cievad under the GPL-3.0 license.Competing Interest StatementThe authors have declared no competing interest.},
-	URL = {https://www.biorxiv.org/content/early/2024/06/21/2024.06.21.600013},
-	eprint = {https://www.biorxiv.org/content/early/2024/06/21/2024.06.21.600013.full.pdf},
-	journal = {bioRxiv}
+@article{krannich2024cievad,
+  title={CIEVaD: A Lightweight Workflow Collection for the Rapid and On-Demand Deployment of End-to-End Testing for Genomic Variant Detection},
+  author={Krannich, Thomas and Ternovoj, Dmitrii and Paraskevopoulou, Sofia and Fuchs, Stephan},
+  journal={Viruses},
+  volume={16},
+  number={9},
+  pages={1444},
+  year={2024},
+  doi={10.3390/v16091444}
 }
 ```
 
